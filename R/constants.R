@@ -8,7 +8,7 @@ DATALINK<-"https://raw.githubusercontent.com/mcfanda/gamlj_docs/master/data"
 # These handle the release notes from commits
 MODULE_REPO="pathj"
 MODULE_REPO_OWNER="pathj"
-FIRST_VERSION="Version.0.0.0"
+FIRST_VERSION="Version.0.0.1"
 BANNED_COMMITS=list("initialize","fix commits","remove some marks","typo in random table #73","1.5.0")
 BANNED_COMMITS_GREP=list("^#","^!","^Merge branch","spelling")
 
