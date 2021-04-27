@@ -11,6 +11,8 @@ navbar:
     href:  rosetta.html
   - text: "PATHj in R"
     href:  vignettes.html
+  - text: "Release Notes"
+    href:  release_notes.html
 
   right: 
   - text: "View on Github"
