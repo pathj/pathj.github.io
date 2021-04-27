@@ -1,8 +1,8 @@
 # folders should be absolute or relative to the docssource folder
 # do not use the trailing slash
 MODULE_FOLDER="/home/marcello/Skinner/Forge/jamovi/pathj/pathj/"
-SOURCE_FOLDER="../pubs"
-TARGET_FOLDER="../"
+SOURCE_FOLDER="docs"
+TARGET_FOLDER="."
 DATALINK<-"https://raw.githubusercontent.com/mcfanda/gamlj_docs/master/data"
 
 # These handle the release notes from commits
