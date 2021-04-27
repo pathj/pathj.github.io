@@ -1,0 +1,53 @@
+---
+title: "Infos"
+author: (Marcello Gallucci)
+output: 
+  html_document:
+    includes:
+      in_header: ganalytics.txt
+    toc: true
+    toc_float:
+      collapsed: false
+
+---
+
+
+```{r echo=FALSE,results='hide'}
+source("../R/functions.R")
+```
+
+
+# Examples
+Here you can find some applications of GALMj module.
+
+
+## Simple Regression models
+
+`r include_examples("simple")`
+
+## Multiple Dependent variables
+
+`r include_examples("multiple")`
+
+## Interactions
+
+`r include_examples("interactions")`
+
+## Categorical variables
+
+`r include_examples("categorical")`
+
+# Rosetta store: results across software
+
+Comparisons with other software: Here you can find comparisons of  results obtained in jamovi module,  and other software, usually jamovi (jmv), pure R, and SPSS. The pages are primarily meant to test convergence between the module and well-established packages, but they can be useful also to check how to get equivalent results across different programs.
+
+
+`r list_pages(category="rosetta")`
+
+# Specs
+
+`r list_pages(category="details")`
+
+
+
+`r issues()`

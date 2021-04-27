@@ -1,0 +1,39 @@
+---
+title: "General Linear Model"
+topic: glm
+category: help
+output: 
+  html_document:
+     includes:
+         in_header: ganalytics.txt
+     toc: true
+     toc_float:
+        collapsed: false
+---
+
+
+```{r echo=FALSE,results='hide'}
+source("../R/functions.R")
+```
+
+**PATHJ** module of the PATHj suite for jamovi
+
+`r version("0.0.4")` 
+
+
+# Examples
+
+Some worked out examples of the analyses carried out with jamovi GAMLj are posted here (more to come)
+
+`r include_examples("pathj")`
+
+# Details
+
+Some more information about the module specs can be found here
+
+`r include_details("pathj")`
+
+
+`r issues()`
+
+'

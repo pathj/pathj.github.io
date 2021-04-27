@@ -1,0 +1,60 @@
+---
+title: "PATHj: Path analysis in Jamovi"
+output: 
+  html_document:
+    includes:
+         in_header: ganalytics.txt
+
+---
+  
+
+```{r echo=FALSE,results='hide'}
+source("../R/functions.R")
+
+```
+  
+
+Path analysis for jamovi based on R package lavaan
+
+<img src="commons/pics/ui.png" class="img-responsive" alt="commons/pics/ui.png" width="400">
+
+
+
+# Examples
+
+Some worked out examples of the analyses carried out with jamovi GAMLj are posted here (more to come)
+
+`r list_pages(topic="pathj",category = "example")`
+
+
+
+
+# Installation
+
+
+
+# Install in R
+
+To install it in R, simple use:
+
+```
+
+devtools::install_github("pathj/pathj")
+
+```
+
+# Troubleshooting
+
+Please check out the  [troubleshooting page](https://.github.io/gamlj_docs/troubles.html). 
+
+# Release notes
+
+Please check out the  [Release notes](release_notes.html). 
+
+# Quality control
+
+Please check the [rosetta store](rosetta.html) for alignment with other software results and possible discrepancies.
+
+  
+`r issues()`
+
