@@ -103,8 +103,8 @@ include_details<-function(topic)  {
 issues<-function() {
   a<-'<h1>Comments?</h1>\n'
   a<-paste(a,'<p>Got comments, issues or spotted a bug? Please open an issue on
-      <a href=" https://github.com/mcfanda/gamlj/issues ">
-      GAMLj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a></p>
+      <a href=" https://github.com/pathj/pathj/issues ">
+      PATHj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a></p>
   ')
   return(a)
   
