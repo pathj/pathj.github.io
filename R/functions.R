@@ -7,8 +7,8 @@ jamovi<-function() {
   paste0('<span class="jamovi">jamovi</span>')
 }
 
-gamlj<-function() {
-  paste0('<span class="gamlj">GAMLj</span>')
+pathj<-function() {
+  paste0('<span class="gamlj">PATHj</span>')
 }
 
 opt<-function(opt) {
@@ -124,58 +124,11 @@ backto<-function(topic) {
 test<-function() return("xx xxxxxx x")
 
 
-write_commits<-function() {
-  wd<-getwd()
-  setwd(MODULE_FOLDER)
-### With dates ...  a<-system("git log --pretty=format:'%cd %s' --date=short",intern = T)
-  a<-system("git log --pretty=format:'%s' --date=short",intern = T)
-  test<-grep("initialize",a,fixed=T)
-  if (length(test)==0)
-      return(FALSE)
-  coms<-a[1:(grep("initialize",a,fixed=T)-1)]
-  coms<-rev(unique(coms))
-  sel<-list()
-  j<-1
-  version="none"
-  versions<-character()
-  for (i in seq_along(coms)) {
-    test<-grep("!",coms[[i]],fixed=T)
-    if (length(test)>0) next()
-    test<-grep("Merge",coms[[i]],fixed=T)
-    if (length(test)>0) next()
-    test<-grep("§",coms[[i]],fixed=T)
-    if (length(test)>0) coms[[i]]<-paste("<b>",coms[[i]],"</b>")
-    
-    test<-grep("#",coms[[i]],fixed=T)
-    if (length(test)>0) {
-      version<-strsplit(coms[[i]],"#",fixed = T)[[1]][2]
-      versions<-c(versions,version)
-      next()
-    }
-    sel[[j]]<-c(coms[[i]],version)
-    j<-j+1
-  }
-  sel<-rev(sel)
-  versions<-rev(versions)
-  coms<-do.call("rbind",sel)
-  for (i in seq_along(versions)) {
-    rel<-""
-    if (i==1) rel<-"(future)"
-    if (i==2) rel<-"(current)"
-    
-    cat(paste("#",versions[i],rel,"\n\n"))
-    cs<-rev(coms[coms[,2]==versions[i],1])
-    for (j in cs)
-      cat(paste("*",j,"\n\n"))
-  }
-  setwd(wd)
-  #coms
-}
 
 get_commits<-function() {
   
   query<-paste0("/repos/:owner/:repo/branches")
-  vers<-gh::gh(query, owner = "gamlj", repo = "gamlj",.limit=Inf,.token=API_TOKEN)
+  vers<-gh::gh(query, owner = MODULE_REPO_OWNER , repo = MODULE_REPO ,.limit=Inf,.token=API_TOKEN)
   vernames<-sapply(vers,function(a) a$name)
   ord<-order(vernames)
   vernames<-vernames[ord]
@@ -196,7 +149,7 @@ get_commits<-function() {
   results<-list()
   for (r in vers) {
     query<-paste0("/repos/:owner/:repo/commits")
-    coms<-gh::gh(query, sha=r$name, since=date,owner = "gamlj", repo = "gamlj",.limit=Inf,.token=API_TOKEN)
+    coms<-gh::gh(query, sha=r$name, since=date,owner = MODULE_REPO_OWNER, repo = MODULE_REPO,.limit=Inf,.token=API_TOKEN)
     if (length(coms)==0)
        next()
     for (com in coms) {
@@ -212,44 +165,8 @@ get_commits<-function() {
 }
 
 
-write_commits2_old<-function() {
-  commits<-get_commits()
-  sel<-list()
-  j<-1
-  for (i in 1:dim(commits)[1]) {
-    msg<-commits[i,"msg"]
-    test<-grep("#",msg,fixed=T)
-    if (length(test)>0) next()
-    test<-grep("!",msg,fixed=T)
-    if (length(test)>0) next()
-    test<-grep("Merge",msg,fixed=T)
-    if (length(test)>0) next()
-    test<-grep("§",msg,fixed=T)
-    if (length(test)>0) msg<-paste("<b>",msg,"</b>")
-    test<-grep("#",msg,fixed=T)
-    if (length(test)>0) {
-      next()
-    }
-    sel[[j]]<-c(msg,commits[i,"version"])
-    j<-j+1
-  }
-  sel<-rev(sel)
-  versions<-rev(unique(commits$version))
-  coms<-do.call("rbind",sel)
-  for (i in seq_along(versions)) {
-    rel<-""
-    if (i==1) rel<-"(future)"
-    if (i==2) rel<-"(current)"
-    
-    cat(paste("#",versions[i],rel,"\n\n"))
-    cs<-coms[coms[,2]==versions[i],1]
-    for (j in cs)
-      cat(paste("*",j,"\n\n"))
-  }
-  #coms
-}
 
-write_commits2<-function() {
+write_commits<-function() {
   commits<-get_commits()
   sel<-list()
   j<-1
@@ -280,7 +197,7 @@ write_commits2<-function() {
     if (i==1) rel<-"(future)"
     if (i==2) rel<-"(current)"
     
-    cat(paste("#",versions[i],rel,"\n\n"))
+    cat(paste("##",versions[i],rel,"\n\n"))
     cs<-coms[coms[,2]==versions[i],1]
     for (j in cs)
       cat(paste("*",j,"\n\n"))
