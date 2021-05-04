@@ -1,5 +1,5 @@
 ---
-title: "General Linear Model"
+title: "Path analysis for jamovi"
 topic: glm
 category: help
 output: 
@@ -13,12 +13,15 @@ output:
 
 
 ```{r echo=FALSE,results='hide'}
+source("../R/constants.R")
 source("../R/functions.R")
 ```
 
+`r keywords("pathj,jamovi, path analyis")`
+
 **PATHJ** module of the PATHj suite for jamovi
 
-`r version("0.0.4")` 
+`r version("0.0.8")` 
 
 
 # Examples

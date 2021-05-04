@@ -27,7 +27,7 @@ keywords<-function(key) {
 }
 
 version<-function(ver) {
-    paste('<span class="version"> <span class="versiontitle"> GALMj version ≥ </span> ',ver,' </span>')
+    paste('<span class="version"> <span class="versiontitle">',MODULE_NAME,' version ≥ </span> ',ver,' </span>')
 }
 
 draft<-'<span class="draft"> Draft version, mistakes may be around </span>'

@@ -1,5 +1,6 @@
 # folders should be absolute or relative to the docssource folder
 # do not use the trailing slash
+MODULE_NAME="PATHj"
 MODULE_FOLDER="/home/marcello/Skinner/Forge/jamovi/pathj/pathj/"
 SOURCE_FOLDER="docs"
 TARGET_FOLDER="."
