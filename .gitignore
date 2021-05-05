@@ -2,6 +2,8 @@
 .Rhistory
 .Rapp.history
 
+R/secrets.R
+
 # Session Data files
 .RData
 
