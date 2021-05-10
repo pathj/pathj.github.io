@@ -34,7 +34,7 @@ source("../R/functions.R")
 
 # Introduction
 
-`r modulename` module estimation is based on `lavaan` R package [@lavaan]. Most of `r modulename` work is to prepare data and options to be send to lavaan, extract the output and pack it nicely for `r jamovi` output. Nonetheless, there are a few operations that should be explained to let the user know what `r modulename` is actually doing. Here you find some information.
+`r modulename` module estimation is based on `lavaan` R package [@lavaan]. Most of `r modulename` work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for `r jamovi` output. Nonetheless, there are a few operations that should be explained to let the user know what `r modulename` is actually doing. Here you find some information.
 
 
 # Categorical Variables
