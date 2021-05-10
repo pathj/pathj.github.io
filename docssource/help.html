@@ -382,7 +382,7 @@ div.tocify {
 <p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the Factor Coding tab.</p>
 <p>Continuous variable are left unchanged, but their scale can be changed in the <code>Continuous Variables Scaling</code> tab, for easily centering, or standardizing the variables.</p>
 <p><code>Multigroup Analysis Factor</code> is used to run multigroup analyses.</p>
-<p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets ar follows:</p>
+<p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets as follows:</p>
 <p><img src=" pics/help/input_variables_filled.png " class="img-responsive" alt=""></p>
 <div id="endogenous-models" class="section level2">
 <h2>Endogenous Models</h2>
@@ -392,7 +392,7 @@ div.tocify {
 </div>
 <div id="variances-and-covariances" class="section level2">
 <h2>Variances and Covariances</h2>
-<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <span class="option">Free Parameters -&gt; Endogenous Correlations</span>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
+<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More precisely, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <span class="option">Free Parameters -&gt; Endogenous Correlations</span>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
 <p>The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option <span class="option">Miscellaneous -&gt; Fixed Exogenous</span> in the <span class="option">Parameters Options</span> panel, or select the terms pair and bring it in the right panel.</p>
 <p>Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable <code>x3</code> is required.</p>
 <p><img src=" pics/help/input_varcov.png " class="img-responsive" alt=""></p>
@@ -400,7 +400,7 @@ div.tocify {
 <div id="model-options" class="section level2">
 <h2>Model Options</h2>
 <p><img src=" pics/help/input_modeloptions.png " class="img-responsive" alt=""></p>
-<p>Here we find some options regarding the estimation of the model as a whole. <span class="option">Estimation</span> regards the estimator. At the moment, there are the following estimators available, selected by <span class="option">Method</span> combobox:</p>
+<p>Here we find some options regarding the estimation of the model as a whole. <span class="option">Estimation</span> regards the estimator. At the moment, there are the following estimators available, selected by <span class="option">Method</span> combo-box:</p>
 <pre><code>    - name:  ML
       title: Maximum Lik
     - name: GLS 
@@ -421,11 +421,11 @@ div.tocify {
 <div id="factor-coding" class="section level2">
 <h2>Factor Coding</h2>
 <p><img src="pics/help/input_factorcoding.png" class="img-responsive" alt=""></p>
-<p>Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
+<p>Categorical variables are cast in the model according to different coding systems. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
 <p>Note that all contrasts but <span class="option">dummy</span> guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast <span class="option">dummy</span> is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.</p>
 <p>Contrasts definitions can be seen in the output by selecting <span class="option">Show contrast definition table</span>.</p>
 <p>Contrasts variables are always named with the name of the factor and progressive numbers from 1 to K-1, where K is the number of levels of the factor.</p>
-<p>In reading the contrast definition table, one should interpret the <code>(1,2,3)</code> code as meaning “the mean of the levels 1,2, and 3 pooled toghether”. If factor levels 1,2 and 3 are all levels of the factor in the samples, <code>(1,2,3)</code> is equivalent to “the mean of the sample”. For example, for a three levels factor, a contrast labeled <code>1-(1,2,3)</code> means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled <code>1-(2,3)</code> indicates a comparison between level 1 mean and the subsequent levels means pooled together.</p>
+<p>In reading the contrast definition table, one should interpret the <code>(1,2,3)</code> code as meaning “the mean of the levels 1,2, and 3 pooled together”. If factor levels 1,2 and 3 are all levels of the factor in the samples, <code>(1,2,3)</code> is equivalent to “the mean of the sample”. For example, for a three levels factor, a contrast labeled <code>1-(1,2,3)</code> means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled <code>1-(2,3)</code> indicates a comparison between level 1 mean and the subsequent levels means pooled together.</p>
 <p>More details can be find in and in <a href="https://gamlj.github.io/rosetta_contrasts.html">GAMLj module help</a>, which implements the same logic of contrasts.</p>
 </div>
 <div id="continuous-variables-scaling" class="section level2">

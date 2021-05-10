@@ -50,7 +50,7 @@ Continuous variable are left unchanged, but their scale can be changed in the `C
 
 `Multigroup Analysis Factor` is used to run multigroup analyses.
 
-A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets ar follows:
+A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets as follows:
 
 `r pic("pics/help/input_variables_filled.png")`
 
@@ -64,7 +64,7 @@ In this example, `y1` is predicted by `y2`, `x3` and `groups_a` variables, where
 
 ## Variances and Covariances
 
-By default, `r modulename` estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option `r opt("Free Parameters -> Endogenous Correlations")`. If not selected, only the variances are estimated, and the covariances are set to 0. 
+By default, `r modulename` estimate the variances and the covariances among endogenous variables. More precisely, among variables that represent end nodes of the path diagram. This behavior is controlled by the option `r opt("Free Parameters -> Endogenous Correlations")`. If not selected, only the variances are estimated, and the covariances are set to 0. 
 
 The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option `r opt("Miscellaneous -> Fixed Exogenous")` in the `r opt("Parameters Options")` panel, or select the terms pair and bring it in the right panel.
 
@@ -78,7 +78,7 @@ Any variance or covariance not already present in the model can be estimated by 
 `r pic("pics/help/input_modeloptions.png")`
 
 Here we find some options regarding the estimation of the model as a whole. 
-`r opt("Estimation")` regards the estimator. At the moment, there are the following estimators available, selected by `r opt("Method")` combobox:
+`r opt("Estimation")` regards the estimator. At the moment, there are the following estimators available, selected by `r opt("Method")` combo-box:
 
         - name:  ML
           title: Maximum Lik
@@ -103,7 +103,7 @@ Here we find options regarding how to compute and display different parameters.
 
 <img src="pics/help/input_factorcoding.png" class="img-responsive" alt="">
 
-Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is `r opt("simple")`, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels. 
+Categorical variables are cast in the model according to different coding systems. The coding schema applies to all parameters estimates. The default coding schema is `r opt("simple")`, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels. 
 
 Note that all contrasts but `r opt("dummy")` guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast `r opt("dummy")` is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.  
 
@@ -111,7 +111,7 @@ Contrasts definitions can be seen in the output by selecting `r opt("Show contra
 
 Contrasts variables are always named with the name of the factor and progressive numbers from 1 to K-1, where K is the number of levels of the factor.
 
-In reading the contrast definition table, one should interpret the `(1,2,3)` code as meaning "the mean of the levels 1,2, and 3 pooled toghether". If factor levels 1,2 and 3 are all levels of the factor in the samples, `(1,2,3)` is equivalent to "the mean of the sample". For example, for a three levels factor, a contrast labeled `1-(1,2,3)` means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled `1-(2,3)` indicates a comparison between level 1 mean and the subsequent levels means pooled together.
+In reading the contrast definition table, one should interpret the `(1,2,3)` code as meaning "the mean of the levels 1,2, and 3 pooled together". If factor levels 1,2 and 3 are all levels of the factor in the samples, `(1,2,3)` is equivalent to "the mean of the sample". For example, for a three levels factor, a contrast labeled `1-(1,2,3)` means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled `1-(2,3)` indicates a comparison between level 1 mean and the subsequent levels means pooled together.
 
 More details can be find in `r link_pages(nickname="categorical_variables")` and in [GAMLj module help](https://gamlj.github.io/rosetta_contrasts.html), which implements the same logic of contrasts.
 
