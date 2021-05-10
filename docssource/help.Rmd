@@ -93,7 +93,7 @@ Here we find some options regarding the estimation of the model as a whole.
 
 All explanations regarding the estimators can be found in the great [lavaan documentation](https://lavaan.ugent.be/tutorial/est.html) 
 
-The options `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. Details can be found here [Computation details](pathj_details.html)
+The options `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. Details can be found here [Computation details](compute_details.html)
 
 ## Parameters Options
 
