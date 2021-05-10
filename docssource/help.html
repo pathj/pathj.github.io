@@ -378,8 +378,8 @@ div.tocify {
 <p>To open <span class="modulename">PATHj</span>, one clicks on the <code>SEM</code> menu, and then <code>Path Analysis</code> under <code>pathj</code>.</p>
 <p>Like any <span class="jamovi">jamovi</span> module, the input user interface resides on the left panel of the <code>Analysis</code> pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.</p>
 <p><img src=" pics/help/input_variables_role.png " class="img-responsive" alt=""></p>
-<p>To run a model, we first select the variables and their role. <code>Endogenous Variables</code> are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in <code>Exogenous Factors</code>, continuous variables for in <code>Exogenous Covariates</code>.</p>
-<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the <code>Factor Coding</code> tab.</p>
+<p>To run a model, we first select the variables and their role. `<span class="option">Endogenous Variables</span> are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in <span class="option">Exogenous Factors</span>, continuous variables for in <span class="option">Exogenous Covariates</span>.</p>
+<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the Factor Coding tab.</p>
 <p>Continuous variable are left unchanged, but their scale can be changed in the <code>Continuous Variables Scaling</code> tab, for easily centering, or standardizing the variables.</p>
 <p><code>Multigroup Analysis Factor</code> is used to run multigroup analyses.</p>
 <p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets ar follows:</p>
@@ -392,14 +392,14 @@ div.tocify {
 </div>
 <div id="variances-and-covariances" class="section level2">
 <h2>Variances and Covariances</h2>
-<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <code>Free Parameters -&gt; Endogenous Correlations</code>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
-<p>The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option <code>Miscellaneous -&gt; Fixed Exogenous</code> in the <code>Parameters Options</code> panel, or select the terms pair and bring it in the right panel.</p>
+<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <span class="option">Free Parameters -&gt; Endogenous Correlations</span>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
+<p>The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option <span class="option">Miscellaneous -&gt; Fixed Exogenous</span> in the <span class="option">Parameters Options</span> panel, or select the terms pair and bring it in the right panel.</p>
 <p>Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable <code>x3</code> is required.</p>
 <p><img src=" pics/help/input_varcov.png " class="img-responsive" alt=""></p>
 </div>
 <div id="factor-coding" class="section level2">
 <h2>Factor Coding</h2>
-<p><img src="pics/input_factorcoding.png" class="img-responsive" alt=""></p>
+<p><img src="pics/help/input_factorcoding.png" class="img-responsive" alt=""></p>
 <p>Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
 <p>Note that all contrasts but <span class="option">dummy</span> guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast <span class="option">dummy</span> is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.</p>
 <p>Contrasts definitions can be seen in the output by selecting <span class="option">Show contrast definition table</span>.</p>

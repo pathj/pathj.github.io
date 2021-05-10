@@ -1,5 +1,5 @@
 ---
-title: "PATHj: Path analysis in Jamovi"
+title: "PATHj: Path analysis in jamovi"
 output: 
   html_document:
     includes:

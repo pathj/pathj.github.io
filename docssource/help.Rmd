@@ -42,9 +42,9 @@ Like any `r jamovi` module, the input user interface resides on the left panel o
 
 `r pic("pics/help/input_variables_role.png")`
 
-To run a model, we first select the variables and their role. `Endogenous Variables` are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in `Exogenous Factors`, continuous variables for in `Exogenous Covariates`. 
+To run a model, we first select the variables and their role. ``r opt("Endogenous Variables")` are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in `r opt("Exogenous Factors")`, continuous variables for in `r opt("Exogenous Covariates")`. 
 
-Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the `Factor Coding` tab.
+Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the `r ("Factor Coding")` tab.
 
 Continuous variable are left unchanged, but their scale can be changed in the `Continuous Variables Scaling` tab, for easily centering, or standardizing the variables. 
 
@@ -64,9 +64,9 @@ In this example, `y1` is predicted by `y2`, `x3` and `groups_a` variables, where
 
 ## Variances and Covariances
 
-By default, `r modulename` estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option `Free Parameters -> Endogenous Correlations`. If not selected, only the variances are estimated, and the covariances are set to 0. 
+By default, `r modulename` estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option `r opt("Free Parameters -> Endogenous Correlations")`. If not selected, only the variances are estimated, and the covariances are set to 0. 
 
-The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option `Miscellaneous -> Fixed Exogenous` in the `Parameters Options` panel, or select the terms pair and bring it in the right panel.
+The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option `r opt("Miscellaneous -> Fixed Exogenous")` in the `r opt("Parameters Options")` panel, or select the terms pair and bring it in the right panel.
 
 Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable `x3` is required.
 
@@ -76,7 +76,7 @@ Any variance or covariance not already present in the model can be estimated by 
 
 ## Factor Coding
 
-<img src="pics/input_factorcoding.png" class="img-responsive" alt="">
+<img src="pics/help/input_factorcoding.png" class="img-responsive" alt="">
 
 Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is `r opt("simple")`, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels. 
 
