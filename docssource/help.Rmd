@@ -1,6 +1,6 @@
 ---
 title: "Path analysis for jamovi"
-topic: glm
+topic: help
 category: help
 output: 
   html_document:
@@ -73,6 +73,31 @@ Any variance or covariance not already present in the model can be estimated by 
 
 `r pic("pics/help/input_varcov.png")`
 
+## Model Options
+
+`r pic("pics/help/input_modeloptions.png")`
+
+Here we find some options regarding the estimation of the model as a whole. 
+`r opt("Estimation")` regards the estimator. At the moment, there are the following estimators available, selected by `r opt("Method")` combobox:
+
+        - name:  ML
+          title: Maximum Lik
+        - name: GLS 
+          title: Generalized least squares
+        - name: WLS 
+          title: Weighted LS
+        - name: DWLS
+          title: Diagonally weighted LS
+        - name: ULS
+          title: Unweighted LS
+
+All explanations regarding the estimators can be found in the great [lavaan documentation](https://lavaan.ugent.be/tutorial/est.html) 
+
+The options `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. Details can be found here [Computation details](pathj_details.html)
+
+## Parameters Options
+
+Here we find options regarding how to compute and display different parameters. 
 
 ## Factor Coding
 
@@ -93,9 +118,9 @@ More details can be find in `r link_pages(nickname="categorical_variables")` and
 
 ## Continuous Variables Scaling
 
-<img src="pics/input_scaling.png" class="img-responsive" alt="">
+<img src="pics/help/input_scaling.png" class="img-responsive" alt="">
 
-Continuous variables by default are not changed in scale (`r opt("none")`), but one can center `r opt("centered")` them, standardize them (`r opt("z-scores")`), log-transform (`r opt("Log")`). Centering may be useful when interactions are involved in the model.
+Continuous variables by default are not changed in scale (`r opt("none")`), but one can center (`r opt("centered")`) them, standardize them (`r opt("z-scores")`), log-transform (`r opt("Log")`). Centering may be useful when interactions are involved in the model.
 
 
 # Examples

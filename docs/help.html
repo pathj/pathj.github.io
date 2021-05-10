@@ -397,9 +397,26 @@ div.tocify {
 <p>Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable <code>x3</code> is required.</p>
 <p><img src=" pics/help/input_varcov.png " class="img-responsive" alt=""></p>
 </div>
+<div id="model-options" class="section level2">
+<h2>Model Options</h2>
+<p><img src=" pics/help/input_modeloptions.png " class="img-responsive" alt=""></p>
+<p>Here we find some options regarding the estimation of the model as a whole. <span class="option">Estimation</span> regards the estimator. At the moment, there are the following estimators available, selected by <span class="option">Method</span> combobox:</p>
+<pre><code>    - name:  ML
+      title: Maximum Lik
+    - name: GLS 
+      title: Generalized least squares
+    - name: WLS 
+      title: Weighted LS
+    - name: DWLS
+      title: Diagonally weighted LS
+    - name: ULS
+      title: Unweighted LS</code></pre>
+<p>All explanations regarding the estimators can be found in the great <a href="https://lavaan.ugent.be/tutorial/est.html">lavaan documentation</a></p>
+<p>The options <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="pathj_details.html">Computation details</a></p>
+</div>
 <div id="factor-coding" class="section level2">
 <h2>Factor Coding</h2>
-<p><img src="pics/input_factorcoding.png" class="img-responsive" alt=""></p>
+<p><img src="pics/help/input_factorcoding.png" class="img-responsive" alt=""></p>
 <p>Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
 <p>Note that all contrasts but <span class="option">dummy</span> guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast <span class="option">dummy</span> is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.</p>
 <p>Contrasts definitions can be seen in the output by selecting <span class="option">Show contrast definition table</span>.</p>
@@ -409,8 +426,8 @@ div.tocify {
 </div>
 <div id="continuous-variables-scaling" class="section level2">
 <h2>Continuous Variables Scaling</h2>
-<p><img src="pics/input_scaling.png" class="img-responsive" alt=""></p>
-<p>Continuous variables by default are not changed in scale (<span class="option">none</span>), but one can center <span class="option">centered</span> them, standardize them (<span class="option">z-scores</span>), log-transform (<span class="option">Log</span>). Centering may be useful when interactions are involved in the model.</p>
+<p><img src="pics/help/input_scaling.png" class="img-responsive" alt=""></p>
+<p>Continuous variables by default are not changed in scale (<span class="option">none</span>), but one can center (<span class="option">centered</span>) them, standardize them (<span class="option">z-scores</span>), log-transform (<span class="option">Log</span>). Centering may be useful when interactions are involved in the model.</p>
 </div>
 </div>
 <div id="examples" class="section level1">
