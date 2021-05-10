@@ -371,13 +371,19 @@ div.tocify {
 <p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.2.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The <span class="modulename">PATHj</span> module represents a <span class="jamovi">jamovi</span> interface to <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent variables, continuous and categorical independent variables, linear and interaction effects. Path diagrams are available thanks to R package <code>semPlot</code> <span class="citation">(Epskamp <a href="#ref-semplot">2015</a>)</span>. Please refer to these package help for detail about the model estimation and path diagrams features.</p>
+<p>The <span class="modulename">PATHj</span> module represents a <span class="jamovi">jamovi</span> interface to <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package <code>semPlot</code> <span class="citation">(Epskamp <a href="#ref-semplot">2015</a>)</span>. Please refer to these package help for detail about the model estimation and path diagrams features.</p>
 </div>
 <div id="user-interface" class="section level1">
 <h1>User Interface</h1>
 <p>To open <span class="modulename">PATHj</span>, one clicks on the <code>SEM</code> menu, and then <code>Path Analysis</code> under <code>pathj</code>.</p>
 <p>Like any <span class="jamovi">jamovi</span> module, the input user interface resides on the left panel of the <code>Analysis</code> pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.</p>
 <p><img src=" pics/help/input_variables_role.png " class="img-responsive" alt=""></p>
+<p>To run a model, we first select the variables and their role. <code>Endogenous Variables</code> are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in <code>Exogenous Factors</code>, continuous variables for in <code>Exogenous Covariates</code>.</p>
+<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the <code>Factor Coding</code> tab.</p>
+<p>Continuous variable are left unchanged, but their scale can be changed in the <code>Continuous Variables Scaling</code> tab, for easily centering, or standardizing the variables.</p>
+<p><code>Multigroup Analysis Factor</code> is used to run multigroup analyses.</p>
+<p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets ar follows:</p>
+<p><img src=" pics/help/input_variables_filled.png " class="img-responsive" alt=""></p>
 </div>
 <div id="examples" class="section level1">
 <h1>Examples</h1>

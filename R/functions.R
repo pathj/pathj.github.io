@@ -171,10 +171,11 @@ write_commits<-function() {
   for (i in 1:dim(commits)[1]) {
     msg<-trimws(commits[i,"msg"])
     gonext=FALSE
-    for (rule in BANNED_COMMITS) {
-      if (msg==rule)
-        gonext=TRUE
-    }
+    if (!is.null(BANNED_COMMITS))
+      for (rule in BANNED_COMMITS) {
+        if (msg==rule)
+          gonext=TRUE
+     }
     for (rule in BANNED_COMMITS_GREP) {
       if (length(grep(rule,msg)))
            gonext=TRUE

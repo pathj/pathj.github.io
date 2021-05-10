@@ -32,7 +32,7 @@ source("../R/functions.R")
 
 # Introduction
 
-The `r modulename` module represents a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent variables, continuous and categorical independent variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these package help for detail about the model estimation and path diagrams features.  
+The `r modulename` module represents a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these package help for detail about the model estimation and path diagrams features.  
 
 # User Interface
 
@@ -41,6 +41,18 @@ To open `r modulename`, one clicks on the `SEM` menu, and then `Path Analysis` u
 Like any `r jamovi` module, the input user interface resides on the left panel of the `Analysis` pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.
 
 `r pic("pics/help/input_variables_role.png")`
+
+To run a model, we first select the variables and their role. `Endogenous Variables` are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in `Exogenous Factors`, continuous variables for in `Exogenous Covariates`. 
+
+Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the `Factor Coding` tab.
+
+Continuous variable are left unchanged, but their scale can be changed in the `Continuous Variables Scaling` tab, for easily centering, or standardizing the variables. 
+
+`Multigroup Analysis Factor` is used to run multigroup analyses.
+
+A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets ar follows:
+
+`r pic("pics/help/input_variables_filled.png")`
 
 
 # Examples
