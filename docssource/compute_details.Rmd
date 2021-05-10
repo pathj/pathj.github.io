@@ -1,0 +1,77 @@
+---
+title: "PATHj computation details"
+nickname: computation_details
+topic: pathj
+category: details
+output: 
+  html_document:
+     includes:
+         in_header: ganalytics.txt
+     toc: true
+     toc_float:
+        collapsed: false
+bibliography: 
+     - bib.bib
+     - bib.yaml
+link-citations: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r echo=FALSE,results='hide'}
+source("../R/constants.R")
+source("../R/functions.R")
+```
+
+`r keywords("pathj,jamovi, path analyis ,interactions,categorical variables")`
+
+**PATHJ** module details
+
+`r version("0.5.*")` 
+`r draft`
+
+
+# Introduction
+
+`r modulename` module estimation is based on `lavaan` R package [@lavaan]. Most of `r modulename` work is to prepare data and options to be send to lavaan, extract the output and pack it nicely for `r jamovi` output. Nonetheless, there are a few operations that should be explained to let the user know what `r modulename` is actually doing. Here you find some information.
+
+
+# Categorical Variables
+
+`r modulename` accepts any categorical variable as exogenous variable, indepenently to the number of levels in the variable. This is achieved using a very general rule of linear models: _any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels_. 
+
+Thus, when the user inserts a categorical variable in `r opt("Exogenous Factors")`, `r modulename` creates K-1 new variables in the data sets, each representing a contrasts between levels. Which constrasts weights are used are decided by the `r opt("Factors Coding")` panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrasts variable. 
+
+Generally speaking, this method works well. Here is an example:
+
+Consider the data `pathjexample`, present in the module. One categorical variable is called `groups_a`, featuring three groups. If one used R `lm()` to estimate the effect of `groups_a` on `y1`, one get the following results:
+
+```{r}
+library(pathj)
+data("pathjdata")
+model_formula<-y1~groups_a
+pathjdata$groups_a<-factor(pathjdata$groups_a)
+contrasts(pathjdata$groups_a)<-contr.treatment(3)-(1/3)  # centered constrasts with group 1 as reference group
+summary(lm(model_formula,data=pathjdata))
+
+```
+
+If we know run the same model in `r modulename`, we get the same results in terms of coefficients and interpretation.
+
+```{r, include=FALSE}
+
+mod<-pathj::pathj(formula=list(model_formula),data=pathjdata)
+mod$models$coefficients
+mod
+```
+
+`r pic("pics/details/output_anovacoefficients.png")`
+
+Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and significance of the $R^2$, which introduces us to the next topic.
+
+
+
+`r issues()`
+
+'

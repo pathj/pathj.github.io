@@ -11,7 +11,7 @@
 
 
 
-<title>Path analysis for jamovi</title>
+<title>PATHj computation details</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -361,93 +361,50 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Path analysis for jamovi</h1>
+<h1 class="title toc-ignore">PATHj computation details</h1>
 
 </div>
 
 
-<p><span class="keywords"> <span class="keytitle"> keywords </span> pathj,jamovi, path analyis </span></p>
-<p><strong>PATHJ</strong> module of the PATHj suite for jamovi</p>
-<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.2.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
+<p><span class="keywords"> <span class="keytitle"> keywords </span> pathj,jamovi, path analyis ,interactions,categorical variables </span></p>
+<p><strong>PATHJ</strong> module details</p>
+<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.5.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The <span class="modulename">PATHj</span> module represents a <span class="jamovi">jamovi</span> interface to <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package <code>semPlot</code> <span class="citation">(Epskamp <a href="#ref-semplot">2015</a>)</span>. Please refer to these package help for detail about the model estimation and path diagrams features.</p>
+<p><span class="modulename">PATHj</span> module estimation is based on <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. Most of <span class="modulename">PATHj</span> work is to prepare data and options to be send to lavaan, extract the output and pack it nicely for <span class="jamovi">jamovi</span> output. Nonetheless, there are a few operations that should be explained to let the user know what <span class="modulename">PATHj</span> is actually doing. Here you find some information.</p>
 </div>
-<div id="user-interface" class="section level1">
-<h1>User Interface</h1>
-<p>To open <span class="modulename">PATHj</span>, one clicks on the <code>SEM</code> menu, and then <code>Path Analysis</code> under <code>pathj</code>.</p>
-<p>Like any <span class="jamovi">jamovi</span> module, the input user interface resides on the left panel of the <code>Analysis</code> pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.</p>
-<p><img src=" pics/help/input_variables_role.png " class="img-responsive" alt=""></p>
-<p>To run a model, we first select the variables and their role. `<span class="option">Endogenous Variables</span> are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in <span class="option">Exogenous Factors</span>, continuous variables for in <span class="option">Exogenous Covariates</span>.</p>
-<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the Factors Coding tab.</p>
-<p>Continuous variable are left unchanged, but their scale can be changed in the <code>Continuous Variables Scaling</code> tab, for easily centering, or standardizing the variables.</p>
-<p><code>Multigroup Analysis Factor</code> is used to run multigroup analyses.</p>
-<p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets as follows:</p>
-<p><img src=" pics/help/input_variables_filled.png " class="img-responsive" alt=""></p>
-<div id="endogenous-models" class="section level2">
-<h2>Endogenous Models</h2>
-<p>Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow (see <a href="">interactions in pathj</a> for more info)</p>
-<p><img src=" pics/help/input_endogenous.png " class="img-responsive" alt=""></p>
-<p>In this example, <code>y1</code> is predicted by <code>y2</code>, <code>x3</code> and <code>groups_a</code> variables, whereas <code>y2</code> is predicted by <code>x3</code> and <code>groups_a</code>.</p>
-</div>
-<div id="variances-and-covariances" class="section level2">
-<h2>Variances and Covariances</h2>
-<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More precisely, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <span class="option">Free Parameters -&gt; Endogenous Correlations</span>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
-<p>The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option <span class="option">Miscellaneous -&gt; Fixed Exogenous</span> in the <span class="option">Parameters Options</span> panel, or select the terms pair and bring it in the right panel.</p>
-<p>Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable <code>x3</code> is required.</p>
-<p><img src=" pics/help/input_varcov.png " class="img-responsive" alt=""></p>
-</div>
-<div id="model-options" class="section level2">
-<h2>Model Options</h2>
-<p><img src=" pics/help/input_modeloptions.png " class="img-responsive" alt=""></p>
-<p>Here we find some options regarding the estimation of the model as a whole. <span class="option">Estimation</span> regards the estimator. At the moment, there are the following estimators available, selected by <span class="option">Method</span> combo-box:</p>
-<pre><code>    - name:  ML
-      title: Maximum Lik
-    - name: GLS 
-      title: Generalized least squares
-    - name: WLS 
-      title: Weighted LS
-    - name: DWLS
-      title: Diagonally weighted LS
-    - name: ULS
-      title: Unweighted LS</code></pre>
-<p>All explanations regarding the estimators can be found in the great <a href="https://lavaan.ugent.be/tutorial/est.html">lavaan documentation</a></p>
-<p>The options <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="pathj_details.html">Computation details</a></p>
-</div>
-<div id="parameters-options" class="section level2">
-<h2>Parameters Options</h2>
-<p>Here we find options regarding how to compute and display different parameters.</p>
-</div>
-<div id="factors-coding" class="section level2">
-<h2>Factors Coding</h2>
-<p><img src="pics/help/input_factorcoding.png" class="img-responsive" alt=""></p>
-<p>Categorical variables are cast in the model according to different coding systems. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
-<p>Note that all contrasts but <span class="option">dummy</span> guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast <span class="option">dummy</span> is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.</p>
-<p>Contrasts definitions can be seen in the output by selecting <span class="option">Show contrast definition table</span>.</p>
-<p>Contrasts variables are always named with the name of the factor and progressive numbers from 1 to K-1, where K is the number of levels of the factor.</p>
-<p>In reading the contrast definition table, one should interpret the <code>(1,2,3)</code> code as meaning “the mean of the levels 1,2, and 3 pooled together”. If factor levels 1,2 and 3 are all levels of the factor in the samples, <code>(1,2,3)</code> is equivalent to “the mean of the sample”. For example, for a three levels factor, a contrast labeled <code>1-(1,2,3)</code> means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled <code>1-(2,3)</code> indicates a comparison between level 1 mean and the subsequent levels means pooled together.</p>
-<p>More details can be find in <a href="compute_details.html">PATHj computation details</a> and in <a href="https://gamlj.github.io/rosetta_contrasts.html">GAMLj module help</a>, which implements the same logic of contrasts.</p>
-</div>
-<div id="continuous-variables-scaling" class="section level2">
-<h2>Continuous Variables Scaling</h2>
-<p><img src="pics/help/input_scaling.png" class="img-responsive" alt=""></p>
-<p>Continuous variables by default are not changed in scale (<span class="option">none</span>), but one can center (<span class="option">centered</span>) them, standardize them (<span class="option">z-scores</span>), log-transform (<span class="option">Log</span>). Centering may be useful when interactions are involved in the model.</p>
-</div>
-</div>
-<div id="examples" class="section level1">
-<h1>Examples</h1>
-<p>Some worked out examples of the analyses carried out with jamovi PATHj are posted here (more to come)</p>
-<ul>
-</ul>
-</div>
-<div id="details" class="section level1">
-<h1>Details</h1>
-<p>Some more information about the module specs can be found here</p>
-<ul>
-<li>
-<a href="compute_details.html">PATHj computation details</a>
-</li>
-</ul>
+<div id="categorical-variables" class="section level1">
+<h1>Categorical Variables</h1>
+<p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently to the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
+<p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrasts between levels. Which constrasts weights are used are decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrasts variable.</p>
+<p>Generally speaking, this method works well. Here is an example:</p>
+<p>Consider the data <code>pathjexample</code> present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one used R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one get the following results:</p>
+<pre class="r"><code>library(pathj)
+data(&quot;pathjdata&quot;)
+model_formula&lt;-y1~groups_a
+pathjdata$groups_a&lt;-factor(pathjdata$groups_a)
+contrasts(pathjdata$groups_a)&lt;-contr.treatment(3)-(1/3)  # centered constrasts with group 1 as reference group
+summary(lm(model_formula,data=pathjdata))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = model_formula, data = pathjdata)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.4601 -1.4179 -0.1222  1.3417  6.0651 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   0.1488     0.2318   0.642    0.522
+## groups_a2     0.5305     0.5627   0.943    0.348
+## groups_a3     0.2849     0.5579   0.511    0.611
+## 
+## Residual standard error: 2.311 on 97 degrees of freedom
+## Multiple R-squared:  0.009156,   Adjusted R-squared:  -0.01127 
+## F-statistic: 0.4481 on 2 and 97 DF,  p-value: 0.6401</code></pre>
+<p>If we know run the same model in <span class="modulename">PATHj</span>, we get the same results in terms of coefficients and interpretation.</p>
+<p><img src=" pics/details/output_anovacoefficients.png " class="img-responsive" alt=""></p>
+<p>Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same <span class="math inline">\(R^2\)</span> and significance of the <span class="math inline">\(R^2\)</span>, which introduces us to the next topic.</p>
 <h1>
 Comments?
 </h1>
@@ -456,9 +413,6 @@ Got comments, issues or spotted a bug? Please open an issue on <a href=" https:/
 </p>
 <p>’</p>
 <div id="refs" class="references">
-<div id="ref-semplot">
-<p>Epskamp, Sacha. 2015. “SemPlot: Unified Visualizations of Structural Equation Models.” <em>Structural Equation Modeling: A Multidisciplinary Journal</em> 22 (3). Taylor &amp; Francis: 474–83.</p>
-</div>
 <div id="ref-lavaan">
 <p>Rosseel, Yves. 2012. “lavaan: An R Package for Structural Equation Modeling.” <em>Journal of Statistical Software</em> 48 (2): 1–36. <a href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>.</p>
 </div>
