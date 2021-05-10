@@ -54,6 +54,12 @@ A model with two endogenous variables, one continuous and one factor as exogenou
 
 `r pic("pics/help/input_variables_filled.png")`
 
+## Endogenous Models
+
+Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow.
+
+`r pic("pics/help/input_endogenous.png")`
+
 
 # Examples
 
