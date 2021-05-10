@@ -8,6 +8,11 @@ output:
     toc: true
     toc_float:
       collapsed: false
+bibliography: 
+     - bib.bib
+     - bib.yaml
+link-citations: true
+
 
 ---
 
@@ -18,7 +23,7 @@ source("../R/functions.R")
 
 
 # Examples
-Here you can find some applications of GALMj module.
+Here you can find some applications of `r modulename` module.
 
 
 ## Simple Regression models

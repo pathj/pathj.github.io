@@ -16,8 +16,12 @@ source("../R/functions.R")
 
 Path analysis for jamovi based on R package lavaan
 
-<img src="commons/pics/ui.png" class="img-responsive" alt="commons/pics/ui.png" width="400">
+<img src="pics/overview.png" class="img-responsive" alt="overview" width="600">
 
+# Help
+
+
+<a href="/help.html">Help page </a></li>
 
 
 # Examples

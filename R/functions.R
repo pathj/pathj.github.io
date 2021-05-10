@@ -3,13 +3,11 @@ library(rmarkdown)
 library(Rsearchable)
 library(gh)
 
-jamovi<-function() {
-  paste0('<span class="jamovi">jamovi</span>')
-}
+jamovi<-paste0('<span class="jamovi">jamovi</span>')
 
-pathj<-function() {
-  paste0('<span class="gamlj">PATHj</span>')
-}
+
+modulename<-paste0('<span class="modulename">PATHj</span>')
+
 
 opt<-function(opt) {
   paste0('<span class="option">',opt,'</span>')
@@ -141,7 +139,7 @@ get_commits<-function() {
   vernames<-sapply(vers,function(a) a$name)
   r<-vers[[1]]
   query<-paste0("/repos/:owner/:repo/commits")
-  coms<-gh::gh(query,sha=r$name, owner = "gamlj", repo = "gamlj",.limit=Inf,.token=API_TOKEN)
+  coms<-gh::gh(query,sha=r$name, owner = MODULE_REPO_OWNER, repo = MODULE_REPO,.limit=Inf,.token=API_TOKEN)
   date<-coms[[1]]$commit$author$date
   vers<-vers[2:length(vernames)]
   j<-1

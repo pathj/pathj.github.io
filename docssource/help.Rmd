@@ -9,6 +9,11 @@ output:
      toc: true
      toc_float:
         collapsed: false
+bibliography: 
+     - bib.bib
+     - bib.yaml
+link-citations: true
+
 ---
 
 
@@ -21,7 +26,21 @@ source("../R/functions.R")
 
 **PATHJ** module of the PATHj suite for jamovi
 
-`r version("0.0.8")` 
+`r version("0.2.*")` 
+`r draft`
+
+
+# Introduction
+
+The `r modulename` module represents a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent variables, continuous and categorical independent variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these package help for detail about the model estimation and path diagrams features.  
+
+# User Interface
+
+To open `r modulename`, one clicks on the `SEM` menu, and then `Path Analysis` under `pathj`.
+
+Like any `r jamovi` module, the input user interface resides on the left panel of the `Analysis` pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.
+
+`r pic("pics/help/input_variables_role.png")`
 
 
 # Examples

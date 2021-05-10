@@ -368,7 +368,17 @@ div.tocify {
 
 <p><span class="keywords"> <span class="keytitle"> keywords </span> pathj,jamovi, path analyis </span></p>
 <p><strong>PATHJ</strong> module of the PATHj suite for jamovi</p>
-<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.0.8 </span></p>
+<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.2.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The <span class="modulename">PATHj</span> module represents a <span class="jamovi">jamovi</span> interface to <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent variables, continuous and categorical independent variables, linear and interaction effects. Path diagrams are available thanks to R package <code>semPlot</code> <span class="citation">(Epskamp <a href="#ref-semplot">2015</a>)</span>. Please refer to these package help for detail about the model estimation and path diagrams features.</p>
+</div>
+<div id="user-interface" class="section level1">
+<h1>User Interface</h1>
+<p>To open <span class="modulename">PATHj</span>, one clicks on the <code>SEM</code> menu, and then <code>Path Analysis</code> under <code>pathj</code>.</p>
+<p>Like any <span class="jamovi">jamovi</span> module, the input user interface resides on the left panel of the <code>Analysis</code> pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.</p>
+<p><img src=" pics/help/input_variables_role.png " class="img-responsive" alt=""></p>
+</div>
 <div id="examples" class="section level1">
 <h1>Examples</h1>
 <p>Some worked out examples of the analyses carried out with jamovi PATHj are posted here (more to come)</p>
@@ -387,6 +397,14 @@ Comments?
 Got comments, issues or spotted a bug? Please open an issue on <a href=" https://github.com/pathj/pathj/issues "> PATHj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a>
 </p>
 <p>’</p>
+<div id="refs" class="references">
+<div id="ref-semplot">
+<p>Epskamp, Sacha. 2015. “SemPlot: Unified Visualizations of Structural Equation Models.” <em>Structural Equation Modeling: A Multidisciplinary Journal</em> 22 (3). Taylor &amp; Francis: 474–83.</p>
+</div>
+<div id="ref-lavaan">
+<p>Rosseel, Yves. 2012. “lavaan: An R Package for Structural Equation Modeling.” <em>Journal of Statistical Software</em> 48 (2): 1–36. <a href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>.</p>
+</div>
+</div>
 </div>
 
 
