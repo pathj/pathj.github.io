@@ -386,8 +386,16 @@ div.tocify {
 <p><img src=" pics/help/input_variables_filled.png " class="img-responsive" alt=""></p>
 <div id="endogenous-models" class="section level2">
 <h2>Endogenous Models</h2>
-<p>Here we spefify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow.</p>
+<p>Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow.</p>
 <p><img src=" pics/help/input_endogenous.png " class="img-responsive" alt=""></p>
+<p>In this example, <code>y1</code> is predicted by <code>y2</code>, <code>x3</code> and <code>groups_a</code> variables, whereas <code>y2</code> is predicted by <code>x3</code> and <code>groups_a</code>.</p>
+</div>
+<div id="variances-and-covariances" class="section level2">
+<h2>Variances and Covariances</h2>
+<p>By default, <span class="modulename">PATHj</span> estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option <code>Free Parameters -&gt; Endogenous Correlations</code>. If not selected, only the variances are estimated, and the covariances are set to 0.</p>
+<p>The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option <code>Miscellaneous -&gt; Fixed Exogenous</code> in the <code>Parameters Options</code> panel, or select the terms pair and bring it in the right panel.</p>
+<p>Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable <code>x3</code> is required.</p>
+<p><img src=" pics/help/input_varcov.png " class="img-responsive" alt=""></p>
 </div>
 </div>
 <div id="examples" class="section level1">

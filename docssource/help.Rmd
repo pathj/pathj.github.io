@@ -60,6 +60,21 @@ Here we specify each endogenous variable predictors. First one selects on the ri
 
 `r pic("pics/help/input_endogenous.png")`
 
+In this example, `y1` is predicted by `y2`, `x3` and `groups_a` variables, whereas `y2` is predicted by `x3` and `groups_a`. 
+
+## Variances and Covariances
+
+By default, `r modulename` estimate the variances and the covariances among endogenous variables. More pricesily, among variables that represent end nodes of the path diagram. This behavior is controlled by the option `Free Parameters -> Endogenous Correlations`. If not selected, only the variances are estimated, and the covariances are set to 0. 
+
+The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option `Miscellaneous -> Fixed Exogenous` in the `Parameters Options` panel, or select the terms pair and bring it in the right panel.
+
+Any variance or covariance not already present in the model can be estimated by selecting the appropriate terms pair on the left panel and bring it to the right panel. In this example, the estimation of the variance of variable `x3` is required.
+
+
+`r pic("pics/help/input_varcov.png")`
+
+
+
 
 # Examples
 
