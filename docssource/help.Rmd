@@ -56,7 +56,7 @@ A model with two endogenous variables, one continuous and one factor as exogenou
 
 ## Endogenous Models
 
-Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow.
+Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow (see [interactions in pathj]() for more info)
 
 `r pic("pics/help/input_endogenous.png")`
 
@@ -74,6 +74,28 @@ Any variance or covariance not already present in the model can be estimated by 
 `r pic("pics/help/input_varcov.png")`
 
 
+## Factor Coding
+
+<img src="pics/input_factorcoding.png" class="img-responsive" alt="">
+
+Categorical variables are cast in the model according to different coding schemas. The coding schema applies to all parameters estimates. The default coding schema is `r opt("simple")`, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels. 
+
+Note that all contrasts but `r opt("dummy")` guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast `r opt("dummy")` is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.  
+
+Contrasts definitions can be seen in the output by selecting `r opt("Show contrast definition table")`. 
+
+Contrasts variables are always named with the name of the factor and progressive numbers from 1 to K-1, where K is the number of levels of the factor.
+
+In reading the contrast definition table, one should interpret the `(1,2,3)` code as meaning "the mean of the levels 1,2, and 3 pooled toghether". If factor levels 1,2 and 3 are all levels of the factor in the samples, `(1,2,3)` is equivalent to "the mean of the sample". For example, for a three levels factor, a contrast labeled `1-(1,2,3)` means that the contrast is comparing the mean of level 1 against the mean of the sample. For the same factor, a contrast labeled `1-(2,3)` indicates a comparison between level 1 mean and the subsequent levels means pooled together.
+
+More details can be find in `r link_pages(nickname="categorical_variables")` and in [GAMLj module help](https://gamlj.github.io/rosetta_contrasts.html), which implements the same logic of contrasts.
+
+
+## Continuous Variables Scaling
+
+<img src="pics/input_scaling.png" class="img-responsive" alt="">
+
+Continuous variables by default are not changed in scale (`r opt("none")`), but one can center `r opt("centered")` them, standardize them (`r opt("z-scores")`), log-transform (`r opt("Log")`). Centering may be useful when interactions are involved in the model.
 
 
 # Examples
