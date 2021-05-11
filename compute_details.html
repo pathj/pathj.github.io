@@ -375,10 +375,10 @@ div.tocify {
 </div>
 <div id="categorical-variables" class="section level1">
 <h1>Categorical Variables</h1>
-<p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently to the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
-<p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrasts between levels. Which constrasts weights are used are decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrasts variable.</p>
+<p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently of the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
+<p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable.</p>
 <p>Generally speaking, this method works well. Here is an example:</p>
-<p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one used R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one get the following results:</p>
+<p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one uses R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one gets the following results:</p>
 <pre class="r"><code>library(pathj)
 data(&quot;pathjdata&quot;)
 model_formula&lt;-y1~groups_a
@@ -404,8 +404,9 @@ summary(lm(model_formula,data=pathjdata))</code></pre>
 ## F-statistic: 0.4481 on 2 and 97 DF,  p-value: 0.6401</code></pre>
 <p>If we know run the same model in <span class="modulename">PATHj</span>, we get the same results in terms of coefficients and interpretation.</p>
 <pre class="r"><code>mod&lt;-pathj::pathj(formula=list(model_formula),data=pathjdata)
+mod$models$r2
 mod$models$coefficients</code></pre>
-<p><img src=" pics/details/output_anovacoefficients.png " class="img-responsive" alt=""></p>
+<p><img src=" pics/details/output_anova_coefficients.png " class="img-responsive" alt=""></p>
 <p>Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same <span class="math inline">\(R^2\)</span> and significance of the <span class="math inline">\(R^2\)</span>, which introduces us to the next topic.</p>
 <h1>
 Comments?

@@ -120,7 +120,7 @@ More details can be find in `r link_pages(nickname="computation_details")` and i
 
 <img src="pics/help/input_scaling.png" class="img-responsive" alt="">
 
-Continuous variables, by default, are not changed in scale (`r opt("none")`), but one can center them (`r opt("centered")`), standardize them (`r opt("z-scores")`), log-transform (`r opt("Log")`). Centering may be useful when interactions are involved in the model.
+Continuous variables, by default, are not changed in scale (`r opt("none")`), but one can center them (`r opt("centered")`), standardize them (`r opt("z-scores")`), or log-transform (`r opt("Log")`). Centering may be useful when interactions are involved in the model.
 
 
 # Examples
