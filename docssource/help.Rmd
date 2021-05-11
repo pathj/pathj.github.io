@@ -44,19 +44,19 @@ Like any `r jamovi` module, the input user interface resides on the left panel o
 
 To run a model, we first select the variables and their role. ``r opt("Endogenous Variables")` are the ones that will receive a path in the final model. Exogenous Variables are specified depending on their measurement level. Categorical exogenous variables go in `r opt("Exogenous Factors")`, continuous variables in `r opt("Exogenous Covariates")`. 
 
-Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the `r ("Factors Coding")` tab.
+Factors are handled by decomposing the variable in K-1 contrast variables and insert them in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen and changed in the `r ("Factors Coding")` tab.
 
-Continuous variable are left unchanged, but their scale can be changed in the `Continuous Variables Scaling` tab, for easily centering, or standardizing the variables. 
+Continuous variables are left unchanged, but their scale can be changed in the `r opt("Continuous Variables Scaling")` tab, for easily centering, or standardizing the variables. 
 
-`Multigroup Analysis Factor` is used to run multigroup analyses.
+`r opt("Multigroup Analysis Factor")` is used to run multigroup analyses.
 
-A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets as follows:
+A model with two endogenous variables, one continuous and one factor as exogenous predictors is set as follows:
 
 `r pic("pics/help/input_variables_filled.png")`
 
 ## Endogenous Models
 
-Here we specify each endogenous variable predictors. First one selects on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the field with the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring the on the right panel with the arrow (see [interactions in pathj]() for more info)
+Here we specify the predictors of each endogenous variable. First we select on the right panel the endogenous model that needs to be set, then select the predictor(s) and fill the `r opt("Models for Endogenous Vars")` field clicking the arrow. Interactions among predictors are included by selecting more then one term on the left, and bring them in the right panel with the arrow (see [interactions in pathj]() for more info)
 
 `r pic("pics/help/input_endogenous.png")`
 
