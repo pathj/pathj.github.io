@@ -32,7 +32,7 @@ source("../R/functions.R")
 
 # Introduction
 
-The `r modulename` module represents a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these package help for detail about the model estimation and path diagrams features.  
+The `r modulename` module is a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these package help for detail about the model estimation and path diagrams features.  
 
 # User Interface
 

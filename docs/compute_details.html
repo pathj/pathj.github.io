@@ -371,14 +371,14 @@ div.tocify {
 <p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.5.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p><span class="modulename">PATHj</span> module estimation is based on <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. Most of <span class="modulename">PATHj</span> work is to prepare data and options to be send to lavaan, extract the output and pack it nicely for <span class="jamovi">jamovi</span> output. Nonetheless, there are a few operations that should be explained to let the user know what <span class="modulename">PATHj</span> is actually doing. Here you find some information.</p>
+<p><span class="modulename">PATHj</span> module estimation is based on <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. Most of <span class="modulename">PATHj</span> work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for <span class="jamovi">jamovi</span> output. Nonetheless, there are a few operations that should be explained to let the user know what <span class="modulename">PATHj</span> is actually doing. Here you find some information.</p>
 </div>
 <div id="categorical-variables" class="section level1">
 <h1>Categorical Variables</h1>
 <p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently to the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
 <p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrasts between levels. Which constrasts weights are used are decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrasts variable.</p>
 <p>Generally speaking, this method works well. Here is an example:</p>
-<p>Consider the data <code>pathjexample</code> present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one used R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one get the following results:</p>
+<p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one used R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one get the following results:</p>
 <pre class="r"><code>library(pathj)
 data(&quot;pathjdata&quot;)
 model_formula&lt;-y1~groups_a

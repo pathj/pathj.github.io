@@ -379,7 +379,7 @@ div.tocify {
 <p>Like any <span class="jamovi">jamovi</span> module, the input user interface resides on the left panel of the <code>Analysis</code> pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.</p>
 <p><img src=" pics/help/input_variables_role.png " class="img-responsive" alt=""></p>
 <p>To run a model, we first select the variables and their role. `<span class="option">Endogenous Variables</span> are the one that will receive a path in the final model. Exogenous Variables are specified depending on their measurement levels. Categorical exogenous go in <span class="option">Exogenous Factors</span>, continuous variables for in <span class="option">Exogenous Covariates</span>.</p>
-<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the Factor Coding tab.</p>
+<p>Factors are handled by decomposing the variable in K-1 contrast variable and insert in the model in place of the categorical variable. The type of contrast used, for each factor, can be seen in the Factors Coding tab.</p>
 <p>Continuous variable are left unchanged, but their scale can be changed in the <code>Continuous Variables Scaling</code> tab, for easily centering, or standardizing the variables.</p>
 <p><code>Multigroup Analysis Factor</code> is used to run multigroup analyses.</p>
 <p>A model with two endogenous variables, one continuous and one factor as exogenous predictors is sets as follows:</p>
@@ -412,14 +412,14 @@ div.tocify {
     - name: ULS
       title: Unweighted LS</code></pre>
 <p>All explanations regarding the estimators can be found in the great <a href="https://lavaan.ugent.be/tutorial/est.html">lavaan documentation</a></p>
-<p>The options <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="pathj_details.html">Computation details</a></p>
+<p>The options <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="compute_details.html">Computation details</a></p>
 </div>
 <div id="parameters-options" class="section level2">
 <h2>Parameters Options</h2>
 <p>Here we find options regarding how to compute and display different parameters.</p>
 </div>
-<div id="factor-coding" class="section level2">
-<h2>Factor Coding</h2>
+<div id="factors-coding" class="section level2">
+<h2>Factors Coding</h2>
 <p><img src="pics/help/input_factorcoding.png" class="img-responsive" alt=""></p>
 <p>Categorical variables are cast in the model according to different coding systems. The coding schema applies to all parameters estimates. The default coding schema is <span class="option">simple</span>, which is centered to zero and compares each means with the reference category mean. The reference category is the first appearing in the variable levels.</p>
 <p>Note that all contrasts but <span class="option">dummy</span> guarantee to be centered to zero (intercept being the grand mean), so when involved in interactions the other variables coefficients can be interpret as (main) average effects. If contrast <span class="option">dummy</span> is set, the intercept and the effects of other variables in interactions are estimated for the first group of the categorical IV.</p>
