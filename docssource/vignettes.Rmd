@@ -21,7 +21,7 @@ source("../R/functions.R")
 
 ```
 
-`r version("2.4.0")` 
+`r version("0.5.0")` 
 
 # Introduction
 
@@ -29,7 +29,7 @@ GAMLj module can be installed and used in R as a standard R packages. Please che
 
 # Installation
 
-At the moment, `r pathj()` is not in CRAN yet, so you need to install it via `devtools`
+At the moment, `r modulename` is not in CRAN yet, so you need to install it via `devtools`
 
 ```
 devtools::install_github("pathj/pathj")

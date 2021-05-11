@@ -360,14 +360,14 @@ div.tocify {
 </div>
 
 
-<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 2.4.0 </span></p>
+<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.5.0 </span></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>GAMLj module can be installed and used in R as a standard R packages. Please check the R help for details. Here we provide some appliactions of the package in R.</p>
 </div>
 <div id="installation" class="section level1">
 <h1>Installation</h1>
-<p>At the moment, <span class="gamlj">PATHj</span> is not in CRAN yet, so you need to install it via <code>devtools</code></p>
+<p>At the moment, <span class="modulename">PATHj</span> is not in CRAN yet, so you need to install it via <code>devtools</code></p>
 <pre><code>devtools::install_github(&quot;pathj/pathj&quot;)</code></pre>
 <h2>
 Path Analysis
@@ -387,13 +387,40 @@ Usage
    endogenous = NULL, 
    factors = NULL, 
    covs = NULL, 
-   ciType = "standard", 
+   multigroup = NULL, 
+   se = "standard", 
+   r2ci = "fisher", 
+   r2test = FALSE, 
+   bootci = "perc", 
+   ci = TRUE, 
    ciWidth = 95, 
    bootN = 1000, 
+   showintercepts = TRUE, 
+   intercepts = TRUE, 
+   indirect = FALSE, 
    contrasts = NULL, 
    showRealNames = TRUE, 
    showContrastCode = FALSE, 
+   scaling = NULL, 
    endogenousTerms = list(list()), 
+   diagram = FALSE, 
+   diag_paths = "est", 
+   diag_resid = FALSE, 
+   diag_labsize = "medium", 
+   diag_rotate = "2", 
+   diag_type = "tree2", 
+   diag_shape = "rectangle", 
+   diag_abbrev = "0", 
+   varcov = NULL, 
+   cov_y = TRUE, 
+   cov_x = TRUE, 
+   constraints = list(), 
+   constraints_examples = FALSE, 
+   showlabels = FALSE, 
+   scoretest = TRUE, 
+   cumscoretest = FALSE, 
+   estimator = "ML", 
+   likelihood = "normal", 
    formula 
  ) 
  </pre>
@@ -443,11 +470,61 @@ a vector of strings naming the covariates from <code>data</code>
 </tr>
 <tr valign="top">
 <td>
-<code>ciType</code>
+<code>multigroup</code>
+</td>
+<td>
+<p>
+factor defining groups for multigroup analysis
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>se</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>r2ci</code>
 </td>
 <td>
 <p>
 Choose the confidence interval type
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>r2test</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>bootci</code>
+</td>
+<td>
+<p>
+Choose the confidence interval type
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>ci</code>
+</td>
+<td>
+<p>
+.
 </p>
 </td>
 </tr>
@@ -468,6 +545,36 @@ a number between 50 and 99.9 (default: 95) specifying the confidence interval wi
 <td>
 <p>
 number of bootstrap samples for estimating confidence intervals
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>showintercepts</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), show intercepts
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>intercepts</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), show intercepts
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>indirect</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), show intercepts
 </p>
 </td>
 </tr>
@@ -503,11 +610,201 @@ a list of lists specifying the factor and type of contrast to use, one of <code>
 </tr>
 <tr valign="top">
 <td>
+<code>scaling</code>
+</td>
+<td>
+<p>
+a named vector of the form <code>c(var1=‘type’, var2=‘type2’)</code> specifying the transformation to apply to covariates, one of <code>‘centered’</code> to the mean, <code>‘standardized’</code>,<code>‘log’</code> or <code>‘none’</code>. <code>‘none’</code> leaves the variable as it is.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
 <code>endogenousTerms</code>
 </td>
 <td>
 <p>
 a list of lists specifying the models for with the mediators as dependent variables.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diagram</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), produce a path diagram
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_paths</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_resid</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), produce a path diagram
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_labsize</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_rotate</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_type</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_shape</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>diag_abbrev</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>varcov</code>
+</td>
+<td>
+<p>
+a list of lists specifying the covariances that need to be estimated
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>cov_y</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), produce a path diagram
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>cov_x</code>
+</td>
+<td>
+<p>
+<code>TRUE</code> or <code>FALSE</code> (default), produce a path diagram
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>constraints</code>
+</td>
+<td>
+<p>
+a list of lists specifying the models random effects.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>constraints_examples</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>showlabels</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>scoretest</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>cumscoretest</code>
+</td>
+<td>
+<p>
+.
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>estimator</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
+</p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>likelihood</code>
+</td>
+<td>
+<p>
+Choose the diagram labels
 </p>
 </td>
 </tr>
