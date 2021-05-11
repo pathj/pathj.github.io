@@ -170,6 +170,7 @@ write_commits<-function() {
   j<-1
   for (i in 1:dim(commits)[1]) {
     msg<-trimws(commits[i,"msg"])
+    print(msg)
     gonext=FALSE
     if (!is.null(BANNED_COMMITS))
       for (rule in BANNED_COMMITS) {
