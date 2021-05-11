@@ -59,11 +59,11 @@ summary(lm(model_formula,data=pathjdata))
 
 If we know run the same model in `r modulename`, we get the same results in terms of coefficients and interpretation.
 
-```{r, include=FALSE}
+```{r, eval=FALSE}
 
 mod<-pathj::pathj(formula=list(model_formula),data=pathjdata)
 mod$models$coefficients
-mod
+
 ```
 
 `r pic("pics/details/output_anovacoefficients.png")`

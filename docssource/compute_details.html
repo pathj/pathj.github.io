@@ -403,6 +403,8 @@ summary(lm(model_formula,data=pathjdata))</code></pre>
 ## Multiple R-squared:  0.009156,   Adjusted R-squared:  -0.01127 
 ## F-statistic: 0.4481 on 2 and 97 DF,  p-value: 0.6401</code></pre>
 <p>If we know run the same model in <span class="modulename">PATHj</span>, we get the same results in terms of coefficients and interpretation.</p>
+<pre class="r"><code>mod&lt;-pathj::pathj(formula=list(model_formula),data=pathjdata)
+mod$models$coefficients</code></pre>
 <p><img src=" pics/details/output_anovacoefficients.png " class="img-responsive" alt=""></p>
 <p>Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same <span class="math inline">\(R^2\)</span> and significance of the <span class="math inline">\(R^2\)</span>, which introduces us to the next topic.</p>
 <h1>
