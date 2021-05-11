@@ -61,7 +61,9 @@ If we know run the same model in `r modulename`, we get the same results in term
 
 ```{r, eval=FALSE}
 
-mod<-pathj::pathj(formula=list(model_formula),data=pathjdata)
+mod<-pathj::pathj(formula=list(model_formula),
+                  data=pathjdata,
+                  r2test = TRUE)
 mod$models$r2
 mod$models$coefficients
 
@@ -69,8 +71,11 @@ mod$models$coefficients
 
 `r pic("pics/details/output_anova_coefficients.png")`
 
-Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and significance of the $R^2$, which introduces us to the next topic.
+Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and comparable p-value for the $R^2$, which introduces us to the next topic.
 
+
+
+# $R^2$ and their tests and confidence intervals
 
 
 `r issues()`
