@@ -71,11 +71,21 @@ mod$models$coefficients
 
 `r pic("pics/details/output_anova_coefficients.png")`
 
-Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and comparable p-value for the $R^2$, which introduces us to the next topic.
+Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and comparable p-value for the $R^2$, which is discussed [below](#(R^2)) .
 
 
 
-# $R^2$ and their tests and confidence intervals
+# $R^2$ 
+
+$R^2$ are computed as one minus the standardized residual variance of each endogenous variable. Pratically, defining $\hat{\sigma}^2_r$ as the standardized residual variance  $R^2_v=1-\hat{\sigma}^2_r$ 
+
+As regards the confidence intervals, by default they are estimated converting $R^2$ to $R$, then to $z$ using the Fisher Z-transformation, then estimating the C.I. for $z$ and back transform them to $R^2$. Details in @r2ci.
+
+The alternative method `Residual C.I.` employes the residual variance C.I., by simply computing one minus the standardized limits of the residual variance C.I.. This method may yield negative lower bounds, which do not make much sense in the context of $R^2$.
+
+
+As regards the inferential tests associated with the $R^2$'s (option `r opt("R-squared tests")` in `r opt("Model Options")` panel), they are obtained as Wald's chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (expect the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.
+
 
 
 `r issues()`

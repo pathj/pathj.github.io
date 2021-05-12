@@ -412,11 +412,28 @@ div.tocify {
     - name: ULS
       title: Unweighted LS</code></pre>
 <p>All explanations regarding the estimators can be found in the great <a href="https://lavaan.ugent.be/tutorial/est.html">lavaan documentation</a>.</p>
-<p>The options <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="compute_details.html">Computation details</a></p>
+<p>The option <span class="option">R-squared tests</span> provides Chi-squared tests for the <span class="math inline">\(R2\)</span>. Details can be found here <a href="compute_details.html">Computation details</a></p>
 </div>
 <div id="parameters-options" class="section level2">
 <h2>Parameters Options</h2>
-<p>Here we find options regarding how to compute and display different parameters.</p>
+<p><img src="pics/help/input_parameters.png" class="img-responsive" alt=""></p>
+<p>Here we find options regarding how to compute and display different parameters. <span class="option">Standard errors</span> decides the way the standard errors of the parameters are computed. If <code>bootstrap</code> is selected, the <span class="option">Bootstrap C.I.</span> options allow choosing the bootstrap method to apply to the confidence interval estimation. The alternative are described in <code>lavaan</code> help <code>?lavOptions</code>.</p>
+<p><span class="option">R-squared C.I</span> decides how to compute the R-squared confidence intervals. Details can be found in the <a href="compute_details.html">Computation details</a>.</p>
+</div>
+<div id="path-diagram" class="section level2">
+<h2>Path Diagram</h2>
+<p><img src=" pics/help/input_pathdiagram.png " class="img-responsive" alt=""></p>
+<p>Here one asks for the path diagrams. All options regards aestetics of the digram. One can try out different options and see if the diagram look suits better one’s tastes.</p>
+</div>
+<div id="custom-model-settings" class="section level2">
+<h2>Custom Model Settings</h2>
+<p><img src=" pics/help/input_defined.png " class="img-responsive" alt=""></p>
+<p>This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, free fixed coefficients, and parameters constraints.</p>
+<p><em>User defined parameters</em> are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax <code>newlabel:= param_label1 operator param_label2</code>, where <code>param_label</code> is a coefficient label. <span class="modulename">PATHj</span> assigns labels to coefficients automatically, using <code>p1</code>, <code>p2</code> etc.. One can visualize them in the estimates tables by selecting <span class="option">Show parameters labels</span>. <code>newlabel</code> is optional. If not assigned, <span class="modulename">PATHj</span> will set it to <code>dpX</code>, where <code>X</code> is a counter of defined parameters.</p>
+<p>To free fixed parameters one specify the parameter definition in lavaan syntax style, in the form <code>var1~~var2</code>.</p>
+<p>Parameters constraints are set using labels, in the form <code>p1==0</code> or <code>p1==p2</code> and the like. The option <span class="option">Show examples</span> outputs a table of most common examples like the following table:</p>
+<p><img src="pics/help/input_defined2.png" class="img-responsive" width="800" alt=""></p>
+<p>Options under <span class="option">Constraints tests</span> controls the testing of the constraints statistical significance. <code>opt(&quot;Univariate&quot;)</code> produces a Chi-square test comparing the model with and without each individual constraint. <code>opt(&quot;Cumulative&quot;)</code> produces a Chi-square tests adding each constraints to the model and testing against the original model without constraints.</p>
 </div>
 <div id="factors-coding" class="section level2">
 <h2>Factors Coding</h2>

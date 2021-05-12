@@ -93,11 +93,41 @@ Here we find some options regarding the estimation of the model as a whole.
 
 All explanations regarding the estimators can be found in the great [lavaan documentation](https://lavaan.ugent.be/tutorial/est.html). 
 
-The options `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. Details can be found here [Computation details](compute_details.html)
+The option `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. Details can be found here [Computation details](compute_details.html)
 
 ## Parameters Options
 
-Here we find options regarding how to compute and display different parameters. 
+<img src="pics/help/input_parameters.png" class="img-responsive" alt="">
+
+Here we find options regarding how to compute and display different parameters. `r opt("Standard errors")` decides the way the standard errors of the parameters are computed. If `bootstrap` is selected, the `r opt("Bootstrap C.I.")` options allow choosing the bootstrap method to apply to the confidence interval estimation. The alternative are described in `lavaan` help `?lavOptions`.
+
+`r opt("R-squared C.I")` decides how to compute the R-squared confidence intervals. Details can be found in the [Computation details](compute_details.html).
+
+## Path Diagram
+
+`r pic("pics/help/input_pathdiagram.png")`
+
+Here one asks for the path diagrams. All options regards aestetics of the digram. One can try out different options and see if the diagram look suits better one's tastes.
+
+## Custom Model Settings
+
+`r pic("pics/help/input_defined.png")`
+
+This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, free fixed coefficients, and parameters constraints.
+
+_User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename` will set it to `dpX`, where `X` is a counter of defined parameters.
+
+To free fixed parameters one specify the parameter definition in lavaan syntax style, in the form `var1~~var2`.
+
+Parameters constraints are set using labels, in the form `p1==0` or `p1==p2` and the like. The option `r opt("Show examples")` outputs a table of most common examples like the following table:
+
+
+<img src="pics/help/input_defined2.png" class="img-responsive" width="800" alt="">
+
+
+Options under `r opt("Constraints tests")` controls the testing of the constraints statistical significance. `opt("Univariate")` produces a Chi-square test comparing the model with and without each individual constraint. `opt("Cumulative")` produces a Chi-square tests adding each constraints to the model and testing against the original model without constraints. 
+
+
 
 ## Factors Coding
 
