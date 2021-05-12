@@ -113,7 +113,7 @@ Here one asks for the path diagram. All options regard aestetics of the diagram.
 
 `r pic("pics/help/input_defined.png")`
 
-This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, free fixed coefficients, and parameters constraints.
+This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, to free fixed coefficients, and to constrain parameters.
 
 _User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename` will set it to `dpX`, where `X` is a counter of defined parameters.
 
