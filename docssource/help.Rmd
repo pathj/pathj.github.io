@@ -115,9 +115,9 @@ Here one asks for the path diagram. All options regard aestetics of the diagram.
 
 This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, to free fixed coefficients, and to constrain parameters.
 
-_User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename` will set it to `dpX`, where `X` is a counter of defined parameters.
+_User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename` will set it to `dpX`, where `X` is a counter of defined parameters. The `operator` can be `*` `+` `-` and the like.
 
-To free fixed parameters one specify the parameter definition in lavaan syntax style, in the form `var1~~var2`.
+To free fixed parameters one indicates the parameter in lavaan syntax style, in the form `var1~~var2` or `var1~var2`.
 
 Parameters constraints are set using labels, in the form `p1==0` or `p1==p2` and the like. The option `r opt("Show examples")` outputs a table of most common examples like the following table:
 
@@ -125,7 +125,7 @@ Parameters constraints are set using labels, in the form `p1==0` or `p1==p2` and
 <img src="pics/help/input_defined2.png" class="img-responsive" width="800" alt="">
 
 
-Options under `r opt("Constraints tests")` controls the testing of the constraints statistical significance. `opt("Univariate")` produces a Chi-square test comparing the model with and without each individual constraint. `opt("Cumulative")` produces a Chi-square tests adding each constraints to the model and testing against the original model without constraints. 
+Options under `r opt("Constraints tests")` controls the testing of the constraints statistical significance. `r opt("Univariate")` produces a Chi-square test comparing the model with and without each individual constraint. `r opt("Cumulative")` produces a Chi-square tests adding each constraints to the model and testing against the original model without constraints. 
 
 
 
