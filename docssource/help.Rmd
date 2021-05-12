@@ -99,7 +99,7 @@ The option `r opt("R-squared tests")` provides Chi-squared tests for the $R2$. D
 
 <img src="pics/help/input_parameters.png" class="img-responsive" alt="">
 
-Here we find options regarding how to compute and display different parameters. `r opt("Standard errors")` decides the way the standard errors of the parameters are computed. If `bootstrap` is selected, the `r opt("Bootstrap C.I.")` options allow choosing the bootstrap method to apply to the confidence interval estimation. The alternative are described in `lavaan` help `?lavOptions`.
+Here we find options regarding how to compute and display different parameters. `r opt("Standard errors")` decides the way the standard errors of the parameters are computed. If `bootstrap` is selected, the `r opt("Bootstrap C.I.")` options allow choosing the bootstrap method employed for the confidence interval estimation. The alternatives are described in `lavaan` help `?lavOptions`.
 
 `r opt("R-squared C.I")` decides how to compute the R-squared confidence intervals. Details can be found in the [Computation details](compute_details.html).
 
@@ -107,7 +107,7 @@ Here we find options regarding how to compute and display different parameters. 
 
 `r pic("pics/help/input_pathdiagram.png")`
 
-Here one asks for the path diagrams. All options regards aestetics of the digram. One can try out different options and see if the diagram look suits better one's tastes.
+Here one asks for the path diagram. All options regard aestetics of the diagram. One can try out different options and see which diagram look suits better one's tastes.
 
 ## Custom Model Settings
 
