@@ -125,7 +125,7 @@ Parameters constraints are set using labels, in the form `p1==0` or `p1==p2` and
 <img src="pics/help/input_defined2.png" class="img-responsive" width="800" alt="">
 
 
-Options under `r opt("Constraints tests")` controls the testing of the constraints statistical significance. `r opt("Univariate")` produces a Chi-square test comparing the model with and without each individual constraint. `r opt("Cumulative")` produces a Chi-square tests adding each constraints to the model and testing against the original model without constraints. 
+Options under `r opt("Constraints tests")` controls the testing of the constraints statistical significance. `r opt("Univariate")` produces a Chi-square test comparing the model with and without each individual constraint. `r opt("Cumulative")` produces a Chi-square test for each model in which an additional constraint is added as compared with the original model without constraints. 
 
 
 
