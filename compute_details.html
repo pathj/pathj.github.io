@@ -431,6 +431,10 @@ mod$models$coefficients</code></pre>
 </code></pre>
 <p>The alternative method <code>Residual C.I.</code> employes the residual variance C.I., by simply computing one minus the standardized limits of the residual variance C.I.. This method may yield negative lower bounds, which do not make much sense in the context of <span class="math inline">\(R^2\)</span>.</p>
 <p>As regards the inferential tests associated with the <span class="math inline">\(R^2\)</span>’s (option <span class="option">R-squared tests</span> in <span class="option">Model Options</span> panel), they are obtained as Wald’s chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.</p>
+</div>
+<div id="interactions" class="section level1">
+<h1>Interactions</h1>
+<p><span class="modulename">PATHj</span> accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.</p>
 <h1>
 Comments?
 </h1>

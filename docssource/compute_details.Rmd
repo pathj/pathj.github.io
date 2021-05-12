@@ -104,6 +104,9 @@ The alternative method `Residual C.I.` employes the residual variance C.I., by s
 As regards the inferential tests associated with the $R^2$'s (option `r opt("R-squared tests")` in `r opt("Model Options")` panel), they are obtained as Wald's chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.
 
 
+# Interactions
+
+`r modulename` accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.
 
 `r issues()`
 
