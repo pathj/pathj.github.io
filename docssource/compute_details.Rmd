@@ -80,6 +80,24 @@ The coefficients are the same in R `lm()` and in `r modulename`. Standard errors
 
 `r modulename` accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.
 
+The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in `r modulename`:
+
+```
+y1~x1+x2+x1:x2
+y2~x1+x2+x2:x1
+
+
+```
+We fix this issue in R by simply defining the model as:
+
+```
+y1~x1+x2+x1:x2
+y2~x1+x2+x1:x2
+
+```
+
+`r modulename` handles this issue in `r jamovi` by ordering interaction terms alphabetically.
+
 
 # $R^2$ 
 
@@ -109,23 +127,6 @@ The alternative method `Residual C.I.` employes the residual variance C.I., by s
 
 As regards the inferential tests associated with the $R^2$'s (option `r opt("R-squared tests")` in `r opt("Model Options")` panel), they are obtained as Wald's chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests. 
 
-The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in `r modulename`:
-
-```
-y1~x1+x2+x1:x2
-y2~x1+x2+x2:x1
-
-
-```
-We fix this issue by simply defining the model as:
-
-```
-y1~x1+x2+x1:x2
-y2~x1+x2+x1:x2
-
-```
-
-`r modulename` handle this issue by ordering interaction terms alphabetically.
 
 
 

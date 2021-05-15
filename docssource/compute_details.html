@@ -379,13 +379,8 @@ div.tocify {
 <p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable.</p>
 <p>Generally speaking, this method works well. Here is an example:</p>
 <p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one uses R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one gets the following results:</p>
-<pre class="r"><code>library(pathj)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;pathj&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     pathjdata</code></pre>
-<pre class="r"><code>data(&quot;pathjdata&quot;)
+<pre class="r"><code>library(pathj)
+data(&quot;pathjdata&quot;)
 model_formula&lt;-y1~groups_a
 pathjdata$groups_a&lt;-factor(pathjdata$groups_a)
 contrasts(pathjdata$groups_a)&lt;-contr.treatment(3)-(1/3)  # centered constrasts with group 1 as reference group
@@ -419,6 +414,16 @@ mod$models$coefficients</code></pre>
 <div id="interactions" class="section level1">
 <h1>Interactions</h1>
 <p><span class="modulename">PATHj</span> accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.</p>
+<p>The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in <span class="modulename">PATHj</span>:</p>
+<pre><code>y1~x1+x2+x1:x2
+y2~x1+x2+x2:x1
+
+</code></pre>
+<p>We fix this issue in R by simply defining the model as:</p>
+<pre><code>y1~x1+x2+x1:x2
+y2~x1+x2+x1:x2
+</code></pre>
+<p><span class="modulename">PATHj</span> handles this issue in <span class="jamovi">jamovi</span> by ordering interaction terms alphabetically.</p>
 </div>
 <div id="r2" class="section level1">
 <h1><span class="math inline">\(R^2\)</span></h1>
@@ -440,16 +445,6 @@ mod$models$coefficients</code></pre>
 </code></pre>
 <p>The alternative method <code>Residual C.I.</code> employes the residual variance C.I., by simply computing one minus the standardized limits of the residual variance C.I.. This method may yield negative lower bounds, which do not make much sense in the context of <span class="math inline">\(R^2\)</span>.</p>
 <p>As regards the inferential tests associated with the <span class="math inline">\(R^2\)</span>’s (option <span class="option">R-squared tests</span> in <span class="option">Model Options</span> panel), they are obtained as Wald’s chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.</p>
-<p>The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in <span class="modulename">PATHj</span>:</p>
-<pre><code>y1~x1+x2+x1:x2
-y2~x1+x2+x2:x1
-
-</code></pre>
-<p>We fix this issue by simply defining the model as:</p>
-<pre><code>y1~x1+x2+x1:x2
-y2~x1+x2+x1:x2
-</code></pre>
-<p><span class="modulename">PATHj</span> handle this issue by ordering interaction terms alphabetically.</p>
 <h1>
 Comments?
 </h1>
