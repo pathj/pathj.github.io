@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>PATHj computation details</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FJPHN9QT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T6FJPHN9QT');
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PATHj</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="help.html">Help</a>
+</li>
+<li>
+  <a href="examples.html">Examples</a>
+</li>
+<li>
+  <a href="rosetta.html">Rosetta Store</a>
+</li>
+<li>
+  <a href="vignettes.html">PATHj in R</a>
+</li>
+<li>
+  <a href="release_notes.html">Release Notes</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/pathj/pathj">View on Github</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">PATHj computation details</h1>
+
+</div>
+
+
+<p><span class="keywords"> <span class="keytitle"> keywords </span> pathj,jamovi, path analyis ,interactions,categorical variables </span></p>
+<p><strong>PATHJ</strong> module details</p>
+<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.5.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p><span class="modulename">PATHj</span> module estimation is based on <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. Most of <span class="modulename">PATHj</span> work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for <span class="jamovi">jamovi</span> output. Nonetheless, there are a few operations that should be explained to let the user know what <span class="modulename">PATHj</span> is actually doing. Here you find some information.</p>
+</div>
+<div id="categorical-variables" class="section level1">
+<h1>Categorical Variables</h1>
+<p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently of the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
+<p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable.</p>
+<p>Generally speaking, this method works well. Here is an example:</p>
+<p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one uses R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one gets the following results:</p>
+<pre class="r"><code>library(pathj)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;pathj&#39;</code></pre>
+<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
+## 
+##     pathjdata</code></pre>
+<pre class="r"><code>data(&quot;pathjdata&quot;)
+model_formula&lt;-y1~groups_a
+pathjdata$groups_a&lt;-factor(pathjdata$groups_a)
+contrasts(pathjdata$groups_a)&lt;-contr.treatment(3)-(1/3)  # centered constrasts with group 1 as reference group
+summary(lm(model_formula,data=pathjdata))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = model_formula, data = pathjdata)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.4601 -1.4179 -0.1222  1.3417  6.0651 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   0.1488     0.2318   0.642    0.522
+## groups_a2     0.5305     0.5627   0.943    0.348
+## groups_a3     0.2849     0.5579   0.511    0.611
+## 
+## Residual standard error: 2.311 on 97 degrees of freedom
+## Multiple R-squared:  0.009156,   Adjusted R-squared:  -0.01127 
+## F-statistic: 0.4481 on 2 and 97 DF,  p-value: 0.6401</code></pre>
+<p>If we know run the same model in <span class="modulename">PATHj</span>, we get the same results in terms of coefficients and interpretation.</p>
+<pre class="r"><code>mod&lt;-pathj::pathj(formula=list(model_formula),
+                  data=pathjdata,
+                  r2test = TRUE)
+mod$models$r2
+mod$models$coefficients</code></pre>
+<p><img src=" pics/details/output_anova_coefficients.png " class="img-responsive" alt=""></p>
+<p>The coefficients are the same in R <code>lm()</code> and in <span class="modulename">PATHj</span>. Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same <span class="math inline">\(R^2\)</span> and comparable p-value for the <span class="math inline">\(R^2\)</span>, which is discussed <a href="#(R%5E2)">below</a> .</p>
+</div>
+<div id="interactions" class="section level1">
+<h1>Interactions</h1>
+<p><span class="modulename">PATHj</span> accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.</p>
+</div>
+<div id="r2" class="section level1">
+<h1><span class="math inline">\(R^2\)</span></h1>
+<p><span class="math inline">\(R^2\)</span> are computed as one minus the standardized residual variance of each endogenous variable. Practically, defining <span class="math inline">\(\hat{\sigma}^2_r\)</span> as the standardized residual variance, <span class="math inline">\(R^2_v=1-\hat{\sigma}^2_r\)</span></p>
+<p>As regards the confidence intervals, by default they are estimated converting <span class="math inline">\(R^2\)</span> to <span class="math inline">\(R\)</span>, then to <span class="math inline">\(z\)</span> using the Fisher Z-transformation, then estimating the C.I. for <span class="math inline">\(z\)</span> and back transform them to <span class="math inline">\(R^2\)</span>. The actual formula is in <span class="citation">Carlson (<a href="#ref-r2ci">2013</a>)</span>, and is implemented as follows (R2 is the R-squared, N is the sample size, ciwidth is the C.I. width, usually .95):</p>
+<pre><code>      r&lt;-sqrt(R2)
+      f&lt;-.5 * log((1 + r)/(1 - r))
+      zr&lt;-f*sqrt((N-3))
+      z0&lt;-qnorm((1-ciwidth)/2,lower.tail = F)
+      lower&lt;-zr-z0
+      upper&lt;-zr+z0
+      flower&lt;-lower/sqrt(N-3)
+      fupper&lt;-upper/sqrt(N-3)
+      rupper&lt;-(exp(2*fupper)-1)/(1+exp(2*fupper))
+      rupper&lt;-rupper^2
+      rlower&lt;-(exp(2*flower)-1)/(1+exp(2*flower))
+      rlower&lt;-rlower^2
+
+</code></pre>
+<p>The alternative method <code>Residual C.I.</code> employes the residual variance C.I., by simply computing one minus the standardized limits of the residual variance C.I.. This method may yield negative lower bounds, which do not make much sense in the context of <span class="math inline">\(R^2\)</span>.</p>
+<p>As regards the inferential tests associated with the <span class="math inline">\(R^2\)</span>’s (option <span class="option">R-squared tests</span> in <span class="option">Model Options</span> panel), they are obtained as Wald’s chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.</p>
+<p>The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in <span class="modulename">PATHj</span>:</p>
+<pre><code>y1~x1+x2+x1:x2
+y2~x1+x2+x2:x1
+
+</code></pre>
+<p>We fix this issue by simply defining the model as:</p>
+<pre><code>y1~x1+x2+x1:x2
+y2~x1+x2+x1:x2
+</code></pre>
+<p><span class="modulename">PATHj</span> handle this issue by ordering interaction terms alphabetically.</p>
+<h1>
+Comments?
+</h1>
+<p>
+Got comments, issues or spotted a bug? Please open an issue on <a href=" https://github.com/pathj/pathj/issues "> PATHj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a>
+</p>
+<p>’</p>
+<div id="refs" class="references">
+<div id="ref-r2ci">
+<p>Carlson, Heather A. 2013. “Check Your Confidence: Size Really Does Matter.” <em>Journal of Chemical Information and Modeling</em> 53 (8). ACS Publications: 1837–41.</p>
+</div>
+<div id="ref-lavaan">
+<p>Rosseel, Yves. 2012. “lavaan: An R Package for Structural Equation Modeling.” <em>Journal of Statistical Software</em> 48 (2): 1–36. <a href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+---
+title: "Simple models"
+author: "(Marcello Gallucci)"
+nickname: simplemodels
+topic: pathj
+category: example
+output: 
+  html_document:
+     includes:
+         in_header: ganalytics.txt
+     toc: true
+     toc_float:
+        collapsed: false
+---
+
+```{r echo=FALSE,results='hide'}
+source("../R/functions.R")
+```
+
+
+`r keywords("multiple regression, path analysis, lavaan, multivatiate regression")`
+
+In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple model to familiarize with path analysis, and see how path analysis encompasses simple model usually estimated with the General Linear Model (but look at [GAMLj module])(https://gamlj.github.io/)). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
+
+# Research data
+
+The data we use can be found [here at UCLA](https://stats.idre.ucla.edu/wp-content/uploads/2021/02/worland5.csv). The sample is composed by 500 students,  each with 9 observed variables: Motivation (motiv), Harmony (harm), Stability (stabi), Negative Parental Psychology (ppsych), SES, Verbal IQ (verbal), Reading (read), Arithmetic (arith) and Spelling (spell). They are all continuous variables.
+
+# Simple regression (Model 1A)
+
+First, we estimate a simple regression with *read* as dependent (endogenous) variable and *motiv* as independent (exogenous) variable. 
+
+## Input
+
+In `r modulename` we set the variables roles in the first panel as shown here:
+
+`r pic("pics/example1/input_model1_roles.png")`
+
+and then specify the endogeneous variable predictor in the `r opt("Endogenous Models")` panel
+
+`r pic("pics/example1/input_model1_model.png")`
+
+Because we want to see the path diagram of the model (although in this case is too simple to be interesting), we ask for the path diagram in the `r opt("Path Diagram")` panel.
+
+`r pic("pics/example1/input_model1_diagram.png")`
+
+## Output
+
+
+
+
+
+
+
+```{r  include=FALSE}
+form<-"read~motiv"
+mod<-pathj::pathj(formula = form,data=data)
+
+```
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(modi$info)
+  cat("</pre>")
+
+```
+
+# Related examples
+`r include_examples("glm")`
+
+`r issues()`

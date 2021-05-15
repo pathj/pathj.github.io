@@ -168,4 +168,5 @@ Some more information about the module specs can be found here
 
 `r issues()`
 
-'
+
+#https://psu-psychology.github.io/r-bootcamp-2018/talks/lavaan_tutorial.html#path-analysis-on-housing-data
