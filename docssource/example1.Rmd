@@ -2,7 +2,7 @@
 title: "Simple models"
 author: "(Marcello Gallucci)"
 nickname: simplemodels
-topic: pathj
+topic: simple
 category: example
 output: 
   html_document:
@@ -22,7 +22,7 @@ data<-read.csv("../data/worland5.csv")
 
 
 `r keywords("multiple regression, path analysis, lavaan, multivatiate regression")`
-` r draft`
+`r draft`
 
 In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module])(https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
 
