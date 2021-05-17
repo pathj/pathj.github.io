@@ -28,7 +28,7 @@ Here you can find some applications of `r modulename` module.
 
 ## Simple Regression models
 
-`r include_examples("simple")`
+`r include_examples("simplemodels")`
 
 ## Multiple Dependent variables
 
