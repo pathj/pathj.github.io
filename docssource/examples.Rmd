@@ -26,21 +26,8 @@ source("../R/functions.R")
 Here you can find some applications of `r modulename` module.
 
 
-## Simple Regression models
+`r include_examples()`
 
-`r include_examples("simple")`
-
-## Path analysis
-
-`r include_examples("multiple")`
-
-## Interactions
-
-`r include_examples("interactions")`
-
-## Categorical variables
-
-`r include_examples("categorical")`
 
 # Rosetta store: results across software
 

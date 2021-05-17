@@ -89,7 +89,9 @@ list_pages<-function(nickname=NULL,topic=NULL,category=NULL) {
   return(a)
 }
 
-include_examples<-function(topic)  {
+
+
+include_examples<-function(topic=NULL)  {
   return(list_pages(topic=topic,category = "example"))
 }
 
