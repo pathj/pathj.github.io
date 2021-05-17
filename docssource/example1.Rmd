@@ -11,16 +11,21 @@ output:
      toc: true
      toc_float:
         collapsed: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r echo=FALSE,results='hide'}
 source("../R/functions.R")
+data<-read.csv("../data/worland5.csv")
 ```
 
 
 `r keywords("multiple regression, path analysis, lavaan, multivatiate regression")`
 
-In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple model to familiarize with path analysis, and see how path analysis encompasses simple model usually estimated with the General Linear Model (but look at [GAMLj module])(https://gamlj.github.io/)). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
+In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module])(https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
+
+Much of the output that `r modulename` produces is labeled as it is in lavaan R package output, so lots of information can be found in [lavaan help and tutorials](https://lavaan.ugent.be/tutorial/tutorial.pdf)
 
 # Research data
 
@@ -36,7 +41,7 @@ In `r modulename` we set the variables roles in the first panel as shown here:
 
 `r pic("pics/example1/input_model1_roles.png")`
 
-and then specify the endogeneous variable predictor in the `r opt("Endogenous Models")` panel
+and then specify the endogenous variable predictor in the `r opt("Endogenous Models")` panel
 
 `r pic("pics/example1/input_model1_model.png")`
 
@@ -46,11 +51,7 @@ Because we want to see the path diagram of the model (although in this case is t
 
 ## Output
 
-
-
-
-
-
+### General info
 
 ```{r  include=FALSE}
 form<-"read~motiv"
@@ -61,10 +62,257 @@ mod<-pathj::pathj(formula = form,data=data)
 ```{r  results="asis",warning=FALSE,echo=FALSE}
 
   cat("<pre class='jamovitable'>")
-  print(modi$info)
+  print(mod$info)
   cat("</pre>")
 
 ```
+
+The first table we obtain informs us about the sample size, the model we run, and the log-likelihood. We have 500 cases, upon which we estimated the `read~motiv` model, which requires 3 free parameters: The effect of `motiv` on `read`, the variance of `read` and the intercept. 
+
+`Loglikelihood user model` and `Loglikelihood unrestricted model` are the same and indicate the log likelihood of the model. They are the same because we did not restrict any parameter, so the user model is the unrestricted model.
+
+### Overall tests
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$fit)
+  cat("</pre>")
+
+```
+
+`Model tests` table reports the chi-square of the whole model. Because there is no fixed parameter, the model chi-square is zero, and it is not shown. The `Baseline model` row refers to the comparison between the user model, that is `read~motiv`, and a model in which the variables covariance is set to zero. In this case, it is simply testing that the effect of `motiv` on `read` is different from zero.
+
+Fit indices are the standard indices reported is structural equation models. 
+
+### $R^2$
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$r2)
+  cat("</pre>")
+
+```
+
+The $R^2$ and its' confidence interval is reported. For details about the C.I. estimation, please refer to `r link_pages(nickname="computation_details")`
+
+
+### Coefficients
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$coefficients)
+  cat("</pre>")
+
+```
+
+The `Parameter Estimates` table reports the regression coefficients. Notice that the `Estimate` is the B coefficient, and the $\beta$ is the fully standardized coefficient. In this case are equal because the variables have the same variance (100), which implies that B and $\beta$ are equal.
+
+### Additional parameters
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$correlations)
+  cat("</pre>")
+
+```
+
+The `Variances and Covariances` table reports variables estimated parameters. As regards `read`, we obtain the estimated residual variance (cf. columns `Type` and `Method`). For `motiv`, we obtain the whole variance _computed_ in the sample. This happens because, by default, `r modulename` assumes the exogenous variables to be fixed variables, like in standard regression. This is usually a good idea, but in case one wants to estimate also the variances of the exogenous variables, one can unselect the option `r opt("Parameters Options -> Fixed Exogenous")`. Alternatively, one can estimate this variance by specifying in `r opt("Custom Model Setting")` the code `motive~~motive`. 
+
+The `Intercepts` table reports the intercepts. Coherently with the fact that the  variables are centered to their means in the original data-set, all intercepts are 0.
+
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$intercepts)
+  cat("</pre>")
+
+```
+
+
+These results, in terms of coefficients and $R^2$, are equivalent to the results one would obtain with a standard OLS regression.
+
+# Multiple regression (Model 2)
+
+## Input
+In model 2 we add a second predictor `ppsych`, first in the variables role panel, then to the endogenous variables model.
+
+`r pic("pics/example1/input_model2.png")`
+
+## Output
+
+Results are in line with a standard multiple regression model. The path diagram is as follows
+
+
+```{r  include=FALSE}
+form<-"read~motiv+ppsych"
+mod<-pathj::pathj(formula = form,data=data,diagram = T)
+```
+
+```{r, echo=FALSE}
+
+mod$pathgroup$diagrams
+
+```
+
+We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from `motiv` to `read` is not different from the effect from `ppsych` to read. 
+
+Let's look at the parameters we have just estimated.
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$coefficients)
+  cat("</pre>")
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$correlations)
+  cat("</pre>")
+
+```
+
+We want to test the null-hypothesis .461=-.275. This test makes sense because the two coefficients have the same scale, as indicated by the fact that `motiv` and `ppsych` have the same variance (see `Variances and Covariances` table).
+
+To obtain this test, we need to restrict the two coefficients to be equal. We go to `r opt ("Custom Model Settings")` and flag the option `r opt("Show parameters labels")`. 
+
+`r pic("pics/example1/input_model2_constraints1.png")`
+
+Parameters labels are shortcuts to refer to a coefficient used in lavaan syntax. `r modulename` assigns automatically a label to each parameter from `p1` to `pk`, where `k` is the number of parameters in the model. Parameters labels are shown in the tables.
+
+
+
+```{r  include=FALSE}
+form<-"read~motiv+ppsych"
+mod<-pathj::pathj(formula = form,data=data,diagram = T,showlabels = T)
+
+```
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$coefficients)
+  cat("</pre>")
+
+
+```
+
+We see in the table that the two coefficients that are interesting us are labeled p1 and p2. Thus, we go to the `r opt ("Custom Model Settings")` panel and constraints them as equal.
+
+`r pic("pics/example1/input_model2_constraints2.png")`
+
+```{r  include=FALSE}
+form<-"read~motiv+ppsych"
+mod<-pathj::pathj(formula = form,data=data,diagram = T,showlabels = T, constraints = list("p1==p2"))
+
+```
+
+The output now reports the coefficients as equal to .093. 
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$coefficients)
+  cat("</pre>")
+
+
+```
+
+In the output we also find a new table, `Constraints Score Tests`, which provides a chi-square test comparing the original model with the constrained model with the two coefficients set as equal. The test null-hypothesis is that they are equal, thus if one finds the test to be _significant_, one can reject the null-hypothesis. In this case, the coefficients can be considered as _statistically different_.
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$fit$constraints)
+  cat("</pre>")
+
+
+```
+
+We the same logic, one can test any reasonable hypothesis is a model by restricting the appropriate coefficients to be equal or to equates a specific value. 
+
+# Multivariate regression 
+
+_(Models 3A-E)_
+
+We can now add some endogenous dependent variables. We add `arith` (_arithmetic test score_) as dependent variable in the model, with `motiv` and `ppsych` as predictors of `read`, and only `motiv` as predictor of `arith`. The path diagram looks like this.
+
+`r pic("pics/example1/output_model3_diagram.png")`
+
+
+We obtain this model by adding `arith` to the `r opt("Endogeneous Variables")` field, and then defining its predictors in the `r opt("Endogenous Models")` panel.
+
+`r pic("pics/example1/input_model3_models.png")`
+
+We get exactly the same results obtained in lavaan (cf  [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/)). 
+
+```{r  include=FALSE}
+
+form<-list("read~motiv+ppsych","arith~motiv")
+mod<-pathj::pathj(formula = form,data=data,diagram = T,showlabels = F)
+mod
+```
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$coefficients)
+  cat("</pre>")
+
+
+```
+
+In UCLA page, there is an interesting discussion about the residuals variances of this model, compared with a model with endogenous covariances set to zero. The discussion is useful to understand the difference in the results of a multivariate path analysis model (more than one dependent variable) as compared with a series of univariate models. 
+
+We can reason on this issue from the angle of the variance explained, thus the $R^2$'s. 
+
+Model 3 $R^2$ are the following:
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$r2)
+  cat("</pre>")
+
+```
+
+We can wonder what would be the $R^2$'s one obtains if one runs two independent multiple regressions, one for each dependent variables. Employing `r jamovi` regression, we obtain:
+
+* Dependent=read
+`r pic("pics/example1/output_reg_read.png")`
+
+* Dependent=arith
+`r pic("pics/example1/output_reg_arith.png")`
+
+For `arith` the $R^2$ is the same found with `r modulename`, but for `read` it is different. The reason is that the two regressions do not consider the correlation between `read` and `arith`, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained. 
+
+If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between `read` and `arith` to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (`p6`) to zero in the `r opt("Custom Model Settings")` with the directive `p8==0`.
+
+```{r  include=FALSE}
+
+form<-list("read~motiv+ppsych","arith~motiv")
+mod<-pathj::pathj(formula = form,data=data,showlabels = T, constraints = list("p6==0"))
+mod
+```
+
+```{r  results="asis",warning=FALSE,echo=FALSE}
+
+  cat("<pre class='jamovitable'>")
+  print(mod$models$r2)
+  cat("</pre>")
+
+
+```
+
+
+Results are now identical to the individual regressions. In other words, the advantage of a multivariate model over a series of individual univariate models is that the endogenous variables correlations are taken into the account in the former, and ignored in the latter. incidentally, a multivariate model with orthogonal (not correlated) dependent variables does not have any advantage over a series of univariate models. 
+
+
+
+
 
 # Related examples
 `r include_examples("glm")`
