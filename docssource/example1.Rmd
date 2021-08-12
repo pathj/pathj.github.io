@@ -25,7 +25,7 @@ data<-read.csv("../data/worland5.csv")
 
 `r draft`
 
-In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module])(https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
+In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module](https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
 
 Much of the output that `r modulename` produces is labeled as it is in lavaan R package output, so lots of information can be found in [lavaan help and tutorials](https://lavaan.ugent.be/tutorial/tutorial.pdf)
 
@@ -39,11 +39,11 @@ First, we estimate a simple regression with *read* as dependent (endogenous) var
 
 ## Input
 
-In `r modulename` we set the variables roles in the first panel as shown here:
+In `r modulename` we set the variables roles in the first panel as shown here: The dependent variable goes in the `r opt("Endogenous Variables")` field, and the independent variable goes in the `r opt("Exogenous Variables")` field.
 
 `r pic("pics/example1/input_model1_roles.png")`
 
-and then specify the endogenous variable predictor in the `r opt("Endogenous Models")` panel
+Then we specify the endogenous variable predictor in the `r opt("Endogenous Models")` panel
 
 `r pic("pics/example1/input_model1_model.png")`
 
@@ -110,7 +110,7 @@ The $R^2$ and its' confidence interval is reported. For details about the C.I. e
 
 ```
 
-The `Parameter Estimates` table reports the regression coefficients. Notice that the `Estimate` is the B coefficient, and the $\beta$ is the fully standardized coefficient. In this case are equal because the variables have the same variance (100), which implies that B and $\beta$ are equal.
+The `Parameter Estimates` table reports the regression coefficients. Notice that the `Estimate` is the B coefficient, and the $\beta$ is the fully standardized coefficient. In this case they are equal because the variables have the same variance (100), which implies that B and $\beta$ are equal.
 
 ### Additional parameters
 
@@ -161,7 +161,7 @@ mod$pathgroup$diagrams
 
 ```
 
-We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from `motiv` to `read` is not different from the effect from `ppsych` to read. 
+We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from `motiv` to `read` is not different from the effect from `ppsych` to `read`. 
 
 Let's look at the parameters we have just estimated.
 
@@ -234,7 +234,7 @@ In the output we also find a new table, `Constraints Score Tests`, which provide
 
 ```
 
-We the same logic, one can test any reasonable hypothesis is a model by restricting the appropriate coefficients to be equal or to equates a specific value. 
+We the same logic, one can test any reasonable hypothesis in a model by restricting the appropriate coefficients to be equal or to equate a specific value. 
 
 # Multivariate regression 
 
@@ -245,7 +245,7 @@ We can now add some endogenous dependent variables. We add `arith` (_arithmetic 
 `r pic("pics/example1/output_model3_diagram.png")`
 
 
-We obtain this model by adding `arith` to the `r opt("Endogeneous Variables")` field, and then defining its predictors in the `r opt("Endogenous Models")` panel.
+We obtain this model by adding `arith` to the `r opt("Endogeneous Variables")` field, and then defining its predictor in the `r opt("Endogenous Models")` panel.
 
 `r pic("pics/example1/input_model3_models.png")`
 
@@ -291,7 +291,7 @@ We can wonder what would be the $R^2$'s one obtains if one runs two independent 
 
 For `arith` the $R^2$ is the same found with `r modulename`, but for `read` it is different. The reason is that the two regressions do not consider the correlation between `read` and `arith`, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained. 
 
-If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between `read` and `arith` to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (`p6`) to zero in the `r opt("Custom Model Settings")` with the directive `p8==0`.
+If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between `read` and `arith` to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (`p6`) to zero in the `r opt("Custom Model Settings")` with the directive `p6==0`.
 
 ```{r  include=FALSE}
 

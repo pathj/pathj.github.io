@@ -370,7 +370,7 @@ div.tocify {
 
 <p><span class="keywords"> <span class="keytitle"> keywords </span> multiple regression, path analysis, lavaan, multivatiate regression </span></p>
 <p><span class="draft"> Draft version, mistakes may be around </span></p>
-<p>In this example we show how to estimate simple regression models with <span class="modulename">PATHj</span>. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module])(<a href="https://gamlj.github.io/" class="uri">https://gamlj.github.io/</a>) for a specialized module in <span class="jamovi">jamovi</span>). Second, we are going to estimate some models discussed in <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>, so one can compare the results obtained in <code>lavaan</code> with the ones obtained in <span class="modulename">PATHj</span>. Third, we show how to add some interesting test and twist to simple regression models.</p>
+<p>In this example we show how to estimate simple regression models with <span class="modulename">PATHj</span>. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at <a href="https://gamlj.github.io/">GAMLj module</a> for a specialized module in <span class="jamovi">jamovi</span>). Second, we are going to estimate some models discussed in <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>, so one can compare the results obtained in <code>lavaan</code> with the ones obtained in <span class="modulename">PATHj</span>. Third, we show how to add some interesting test and twist to simple regression models.</p>
 <p>Much of the output that <span class="modulename">PATHj</span> produces is labeled as it is in lavaan R package output, so lots of information can be found in <a href="https://lavaan.ugent.be/tutorial/tutorial.pdf">lavaan help and tutorials</a></p>
 <div id="research-data" class="section level1">
 <h1>Research data</h1>
@@ -381,9 +381,9 @@ div.tocify {
 <p>First, we estimate a simple regression with <em>read</em> as dependent (endogenous) variable and <em>motiv</em> as independent (exogenous) variable.</p>
 <div id="input" class="section level2">
 <h2>Input</h2>
-<p>In <span class="modulename">PATHj</span> we set the variables roles in the first panel as shown here:</p>
+<p>In <span class="modulename">PATHj</span> we set the variables roles in the first panel as shown here: The dependent variable goes in the <span class="option">Endogenous Variables</span> field, and the independent variable goes in the <span class="option">Exogenous Variables</span> field.</p>
 <p><img src=" pics/example1/input_model1_roles.png " class="img-responsive" alt=""></p>
-<p>and then specify the endogenous variable predictor in the <span class="option">Endogenous Models</span> panel</p>
+<p>Then we specify the endogenous variable predictor in the <span class="option">Endogenous Models</span> panel</p>
 <p><img src=" pics/example1/input_model1_model.png " class="img-responsive" alt=""></p>
 <p>Because we want to see the path diagram of the model (although in this case is too simple to be interesting), we ask for the path diagram in the <span class="option">Path Diagram</span> panel.</p>
 <p><img src=" pics/example1/input_model1_diagram.png " class="img-responsive" alt=""></p>
@@ -460,7 +460,7 @@ div.tocify {
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>The <code>Parameter Estimates</code> table reports the regression coefficients. Notice that the <code>Estimate</code> is the B coefficient, and the <span class="math inline">\(\beta\)</span> is the fully standardized coefficient. In this case are equal because the variables have the same variance (100), which implies that B and <span class="math inline">\(\beta\)</span> are equal.</p>
+<p>The <code>Parameter Estimates</code> table reports the regression coefficients. Notice that the <code>Estimate</code> is the B coefficient, and the <span class="math inline">\(\beta\)</span> is the fully standardized coefficient. In this case they are equal because the variables have the same variance (100), which implies that B and <span class="math inline">\(\beta\)</span> are equal.</p>
 </div>
 <div id="additional-parameters" class="section level3">
 <h3>Additional parameters</h3>
@@ -501,7 +501,7 @@ div.tocify {
 <h2>Output</h2>
 <p>Results are in line with a standard multiple regression model. The path diagram is as follows</p>
 <p><img src="example1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from <code>motiv</code> to <code>read</code> is not different from the effect from <code>ppsych</code> to read.</p>
+<p>We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from <code>motiv</code> to <code>read</code> is not different from the effect from <code>ppsych</code> to <code>read</code>.</p>
 <p>Let’s look at the parameters we have just estimated.</p>
 <pre class='jamovitable'>
  Parameter Estimates                                                                                                 
@@ -554,7 +554,7 @@ div.tocify {
 </pre>
 <p>In the output we also find a new table, <code>Constraints Score Tests</code>, which provides a chi-square test comparing the original model with the constrained model with the two coefficients set as equal. The test null-hypothesis is that they are equal, thus if one finds the test to be <em>significant</em>, one can reject the null-hypothesis. In this case, the coefficients can be considered as <em>statistically different</em>.</p>
 <pre class='jamovitable'>
- Contraints Score Tests                                                 
+ Constraints Score Tests                                                
  ────────────────────────────────────────────────────────────────────── 
    Type          Par 1          Par 2    X²          df    p            
  ────────────────────────────────────────────────────────────────────── 
@@ -562,7 +562,7 @@ div.tocify {
  ────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>We the same logic, one can test any reasonable hypothesis is a model by restricting the appropriate coefficients to be equal or to equates a specific value.</p>
+<p>We the same logic, one can test any reasonable hypothesis in a model by restricting the appropriate coefficients to be equal or to equate a specific value.</p>
 </div>
 </div>
 <div id="multivariate-regression" class="section level1">
@@ -570,7 +570,7 @@ div.tocify {
 <p><em>(Models 3A-E)</em></p>
 <p>We can now add some endogenous dependent variables. We add <code>arith</code> (<em>arithmetic test score</em>) as dependent variable in the model, with <code>motiv</code> and <code>ppsych</code> as predictors of <code>read</code>, and only <code>motiv</code> as predictor of <code>arith</code>. The path diagram looks like this.</p>
 <p><img src=" pics/example1/output_model3_diagram.png " class="img-responsive" alt=""></p>
-<p>We obtain this model by adding <code>arith</code> to the <span class="option">Endogeneous Variables</span> field, and then defining its predictors in the <span class="option">Endogenous Models</span> panel.</p>
+<p>We obtain this model by adding <code>arith</code> to the <span class="option">Endogeneous Variables</span> field, and then defining its predictor in the <span class="option">Endogenous Models</span> panel.</p>
 <p><img src=" pics/example1/input_model3_models.png " class="img-responsive" alt=""></p>
 <p>We get exactly the same results obtained in lavaan (cf <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>).</p>
 <pre class='jamovitable'>
@@ -603,7 +603,7 @@ div.tocify {
 <li><p>Dependent=arith <img src=" pics/example1/output_reg_arith.png " class="img-responsive" alt=""></p></li>
 </ul>
 <p>For <code>arith</code> the <span class="math inline">\(R^2\)</span> is the same found with <span class="modulename">PATHj</span>, but for <code>read</code> it is different. The reason is that the two regressions do not consider the correlation between <code>read</code> and <code>arith</code>, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained.</p>
-<p>If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between <code>read</code> and <code>arith</code> to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (<code>p6</code>) to zero in the <span class="option">Custom Model Settings</span> with the directive <code>p8==0</code>.</p>
+<p>If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between <code>read</code> and <code>arith</code> to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (<code>p6</code>) to zero in the <span class="option">Custom Model Settings</span> with the directive <code>p6==0</code>.</p>
 <pre class='jamovitable'>
  R-squared                                           
  ─────────────────────────────────────────────────── 

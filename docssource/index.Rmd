@@ -21,7 +21,7 @@ Path analysis for jamovi based on R package lavaan
 ## Help
 
 
-Please visti the [Help](help.html) tab for usage information of the module in `r jamovi`. For usage information in R, please visti the 'PATHj in R' tab.
+Please visti the [Help](help.html) tab for usage information of the module in `r jamovi`. For usage information in R, please visit the 'PATHj in R' tab.
 
 ## Examples
 
@@ -35,10 +35,13 @@ Some worked out examples of the analyses carried out with jamovi `r modulename` 
 
 ## In jamovi
 
+Please visit the `r jamovi` library within the software
+
+<img src="pics/install.png" class="img-responsive" alt="install" width="600">
 
 ## Install in R
 
-To install it in R, simple use:
+To install it in R, simply use:
 
 ```
 

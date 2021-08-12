@@ -1,0 +1,41 @@
+---
+title: "Simple models"
+author: "(Marcello Gallucci)"
+nickname: categorical
+topic: categorical
+category: example
+output: 
+  html_document:
+     includes:
+         in_header: ganalytics.txt
+     toc: true
+     toc_float:
+        collapsed: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r echo=FALSE,results='hide'}
+source("../R/functions.R")
+data<-read.csv("../data/worland5.csv")
+```
+
+
+`r keywords("multiple regression, path analysis, lavaan, categorical variables, interactions")`
+
+`r draft`
+
+In this example we show how deal with categorical variables in path analysis. 
+
+
+# Research data
+
+We use Anderson's Iris data, featuring 
+
+
+
+
+# Related examples
+`r include_examples("glm")`
+
+`r issues()`
