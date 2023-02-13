@@ -9,8 +9,7 @@ output:
   
 
 ```{r echo=FALSE,results='hide'}
-source("../R/functions.R")
-
+mcdocs::mcdocs_init()
 ```
   
 
@@ -25,7 +24,7 @@ Please visti the [Help](help.html) tab for usage information of the module in `r
 
 ## Examples
 
-Some worked out examples of the analyses carried out with jamovi `r modulename` are posted in the  [Examples](examples.html) tab (more to come)
+Some worked out examples of the analyses carried out with jamovi `r modulename()` are posted in the  [Examples](examples.html) tab (more to come)
 
 `r list_pages(topic="pathj",category = "example")`
 

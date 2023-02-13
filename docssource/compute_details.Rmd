@@ -20,8 +20,8 @@ editor_options:
 
 
 ```{r echo=FALSE,results='hide'}
-source("../R/constants.R")
-source("../R/functions.R")
+mcdocs::mcdocs_init()
+
 ```
 
 `r keywords("pathj,jamovi, path analyis ,interactions,categorical variables")`
@@ -34,14 +34,14 @@ source("../R/functions.R")
 
 # Introduction
 
-`r modulename` module estimation is based on `lavaan` R package [@lavaan]. Most of `r modulename` work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for `r jamovi` output. Nonetheless, there are a few operations that should be explained to let the user know what `r modulename` is actually doing. Here you find some information.
+`r modulename()` module estimation is based on `lavaan` R package [@lavaan]. Most of `r modulename()` work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for `r jamovi` output. Nonetheless, there are a few operations that should be explained to let the user know what `r modulename()` is actually doing. Here you find some information.
 
 
 # Categorical Variables
 
-`r modulename` accepts any categorical variable as exogenous variable, indepenently of the number of levels in the variable. This is achieved using a very general rule of linear models: _any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels_. 
+`r modulename()` accepts any categorical variable as exogenous variable, indepenently of the number of levels in the variable. This is achieved using a very general rule of linear models: _any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels_. 
 
-Thus, when the user inserts a categorical variable in `r opt("Exogenous Factors")`, `r modulename` creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the `r opt("Factors Coding")` panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable. 
+Thus, when the user inserts a categorical variable in `r opt("Exogenous Factors")`, `r modulename()` creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the `r opt("Factors Coding")` panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable. 
 
 Generally speaking, this method works well. Here is an example:
 
@@ -57,7 +57,7 @@ summary(lm(model_formula,data=pathjdata))
 
 ```
 
-If we know run the same model in `r modulename`, we get the same results in terms of coefficients and interpretation.
+If we know run the same model in `r modulename()`, we get the same results in terms of coefficients and interpretation.
 
 ```{r, eval=FALSE}
 
@@ -71,16 +71,16 @@ mod$models$coefficients
 
 `r pic("pics/details/output_anova_coefficients.png")`
 
-The coefficients are the same in R `lm()` and in `r modulename`. Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and comparable p-value for the $R^2$, which is discussed [below](#(R^2)) .
+The coefficients are the same in R `lm()` and in `r modulename()`. Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same $R^2$ and comparable p-value for the $R^2$, which is discussed [below](#(R^2)) .
 
 
 
 
 # Interactions
 
-`r modulename` accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.
+`r modulename()` accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.
 
-The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in `r modulename`:
+The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in `r modulename()`:
 
 ```
 y1~x1+x2+x1:x2
@@ -96,7 +96,7 @@ y2~x1+x2+x1:x2
 
 ```
 
-`r modulename` handles this issue in `r jamovi` by ordering interaction terms alphabetically.
+`r modulename()` handles this issue in `r jamovi` by ordering interaction terms alphabetically.
 
 
 # $R^2$ 

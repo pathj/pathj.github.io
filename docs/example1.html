@@ -370,7 +370,7 @@ div.tocify {
 
 <p><span class="keywords"> <span class="keytitle"> keywords </span> multiple regression, path analysis, lavaan, multivatiate regression </span></p>
 <p><span class="draft"> Draft version, mistakes may be around </span></p>
-<p>In this example we show how to estimate simple regression models with <span class="modulename">PATHj</span>. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at <a href="https://gamlj.github.io/">GAMLj module</a> for a specialized module in <span class="jamovi">jamovi</span>). Second, we are going to estimate some models discussed in <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>, so one can compare the results obtained in <code>lavaan</code> with the ones obtained in <span class="modulename">PATHj</span>. Third, we show how to add some interesting test and twist to simple regression models.</p>
+<p>In this example we show how to estimate simple regression models with <span class="modulename">PATHj</span>. The aim is threefold: first, it may help seeing how the SEM module can estimate path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at <a href="https://gamlj.github.io/">GAMLj module</a> for a specialized module in <span class="jamovi">jamovi</span>). Second, we are going to estimate some models discussed in <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>, so one can compare the results obtained in <code>lavaan</code> with the ones obtained in <span class="modulename">PATHj</span>. Third, we show how to add some interesting test and twist to simple regression models.</p>
 <p>Much of the output that <span class="modulename">PATHj</span> produces is labeled as it is in lavaan R package output, so lots of information can be found in <a href="https://lavaan.ugent.be/tutorial/tutorial.pdf">lavaan help and tutorials</a></p>
 <div id="research-data" class="section level1">
 <h1>Research data</h1>
@@ -432,21 +432,20 @@ div.tocify {
    3561.645    3574.289    3564.767    0.0000000    0.0000000    0.0000000    0.0000000                
  ───────────────────────────────────────────────────────────────────────────────────────────────────── 
 
+
+ Fit Indices                                                                    
+ ────────────────────────────────────────────────────────────────────────────── 
+   CFI          TLI          RNI          GFI          adj. GFI     pars. GFI   
+ ────────────────────────────────────────────────────────────────────────────── 
+   1.0000000    1.0000000    1.0000000    1.0000000    1.0000000    0.0000000   
+ ────────────────────────────────────────────────────────────────────────────── 
+
 </pre>
 <p><code>Model tests</code> table reports the chi-square of the whole model. Because there is no fixed parameter, the model chi-square is zero, and it is not shown. The <code>Baseline model</code> row refers to the comparison between the user model, that is <code>read~motiv</code>, and a model in which the variables covariance is set to zero. In this case, it is simply testing that the effect of <code>motiv</code> on <code>read</code> is different from zero.</p>
 <p>Fit indices are the standard indices reported is structural equation models.</p>
 </div>
 <div id="r2" class="section level3">
 <h3><span class="math inline">\(R^2\)</span></h3>
-<pre class='jamovitable'>
- R-squared                                           
- ─────────────────────────────────────────────────── 
-   Variable    R²           Lower        Upper       
- ─────────────────────────────────────────────────── 
-   read        0.2809000    0.2151737    0.3484043   
- ─────────────────────────────────────────────────── 
-
-</pre>
 <p>The <span class="math inline">\(R^2\)</span> and its’ confidence interval is reported. For details about the C.I. estimation, please refer to <a href="compute_details.html">PATHj computation details</a></p>
 </div>
 <div id="coefficients" class="section level3">
@@ -500,7 +499,7 @@ div.tocify {
 <div id="output-1" class="section level2">
 <h2>Output</h2>
 <p>Results are in line with a standard multiple regression model. The path diagram is as follows</p>
-<p><img src="example1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="example1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from <code>motiv</code> to <code>read</code> is not different from the effect from <code>ppsych</code> to <code>read</code>.</p>
 <p>Let’s look at the parameters we have just estimated.</p>
 <pre class='jamovitable'>

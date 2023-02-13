@@ -18,8 +18,8 @@ link-citations: true
 
 
 ```{r echo=FALSE,results='hide'}
-source("../R/constants.R")
-source("../R/functions.R")
+mcdocs::mcdocs_init()
+
 ```
 
 `r keywords("pathj,jamovi, path analyis")`
@@ -32,11 +32,11 @@ source("../R/functions.R")
 
 # Introduction
 
-The `r modulename` module is a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these packages help for details about models estimation, options, and path diagrams features.  
+The `r modulename()` module is a `r jamovi` interface to `lavaan` R package [@lavaan]. It implements path analysis, so SEM models with observed variables (no latent variables). The module handles continuous dependent (endogenous) variables, continuous and categorical independent (exogenous) variables, linear and interaction effects. Path diagrams are available thanks to R package `semPlot` [@semplot]. Please refer to these packages help for details about models estimation, options, and path diagrams features.  
 
 # User Interface
 
-To open `r modulename`, one clicks on the `SEM` menu, and then `Path Analysis` under `pathj`.
+To open `r modulename()`, one clicks on the `SEM` menu, and then `Path Analysis` under `pathj`.
 
 Like any `r jamovi` module, the input user interface resides on the left panel of the `Analysis` pane. All options are in foldable panels, divided more or less by topic. The only not foldable panel is the variable role definition panel, the one at the top.
 
@@ -64,7 +64,7 @@ In this example, `y1` is predicted by `y2`, `x3` and `groups_a` variables, where
 
 ## Variances and Covariances
 
-By default, `r modulename` estimates the variances and the covariances among endogenous variables. More precisely, among variables that represent end-nodes of the path diagram. This behavior is controlled by the option `r opt("Free Parameters -> Endogenous Correlations")`. If not selected, only the variances are estimated, and the covariances are set to 0. 
+By default, `r modulename()` estimates the variances and the covariances among endogenous variables. More precisely, among variables that represent end-nodes of the path diagram. This behavior is controlled by the option `r opt("Free Parameters -> Endogenous Correlations")`. If not selected, only the variances are estimated, and the covariances are set to 0. 
 
 The variances and covariances of the exogenous variables are computed from the sample data. In case one wants to estimate the population variances and covariances also for the exogenous variables, one should de-select the option `r opt("Miscellaneous -> Fixed Exogenous")` in the `r opt("Parameters Options")` panel, or select the terms pair in the left panel and bring it in the right panel.
 
@@ -115,7 +115,7 @@ Here one asks for the path diagram. All options regard aestetics of the diagram.
 
 This panel allows for additional lavaan syntax to be passed to the model definition. Its aim is to provide an easy mechanism to set user defined parameters, to free fixed coefficients, and to constrain parameters.
 
-_User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename` will set it to `dpX`, where `X` is a counter of defined parameters. The `operator` can be `*` `+` `-` and the like.
+_User defined parameters_ are combinations of parameters, such as sums or products of coefficients. They are defined using the syntax `newlabel:= param_label1 operator param_label2`, where `param_label` is a coefficient label. `r modulename()` assigns labels to coefficients automatically, using `p1`, `p2` etc.. One can visualize them in the estimates tables by selecting `r opt("Show parameters labels")`. `newlabel` is optional. If not assigned, `r modulename()` will set it to `dpX`, where `X` is a counter of defined parameters. The `operator` can be `*` `+` `-` and the like.
 
 To free fixed parameters one indicates the parameter in lavaan syntax style, in the form `var1~~var2` or `var1~var2`.
 

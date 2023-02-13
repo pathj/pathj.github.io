@@ -15,8 +15,7 @@ editor_options:
 
 
 ```{r echo=FALSE,results='hide'}
-source("../R/constants.R")
-source("../R/functions.R")
+mcdocs::mcdocs_init()
 
 
 ```
@@ -29,7 +28,7 @@ GAMLj module can be installed and used in R as a standard R packages. Please che
 
 # Installation
 
-At the moment, `r modulename` is not in CRAN yet, so you need to install it via `devtools`
+At the moment, `r modulename()` is not in CRAN yet, so you need to install it via `devtools`
 
 ```
 devtools::install_github("pathj/pathj")

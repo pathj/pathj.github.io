@@ -18,12 +18,12 @@ link-citations: true
 
 
 ```{r echo=FALSE,results='hide'}
-source("../R/functions.R")
+mcdocs::mcdocs_init()
 ```
 
 
 # Examples
-Here you can find some applications of `r modulename` module.
+Here you can find some applications of `r modulename()` module.
 
 
 `r include_examples()`

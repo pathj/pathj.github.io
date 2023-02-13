@@ -16,7 +16,7 @@ editor_options:
 ---
 
 ```{r echo=FALSE,results='hide'}
-source("../R/functions.R")
+mcdocs::mcdocs_init()
 data<-read.csv("../data/worland5.csv")
 ```
 
@@ -25,9 +25,9 @@ data<-read.csv("../data/worland5.csv")
 
 `r draft`
 
-In this example we show how to estimate simple regression models with `r modulename`. The aim is threefold: first, it may help to start with simple models to familiarize with path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module](https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename`. Third, we show how to add some interesting test and twist to simple regression models.
+In this example we show how to estimate simple regression models with `r modulename()`. The aim is threefold: first, it may help seeing how the SEM module can estimate path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at [GAMLj module](https://gamlj.github.io/) for a specialized module in `r jamovi`). Second, we are going to estimate some models discussed in [UCLA statistical consulting webpage](https://stats.idre.ucla.edu/r/seminars/rsem/), so one can compare the results obtained in `lavaan` with the ones obtained in `r modulename()`. Third, we show how to add some interesting test and twist to simple regression models.
 
-Much of the output that `r modulename` produces is labeled as it is in lavaan R package output, so lots of information can be found in [lavaan help and tutorials](https://lavaan.ugent.be/tutorial/tutorial.pdf)
+Much of the output that `r modulename()` produces is labeled as it is in lavaan R package output, so lots of information can be found in [lavaan help and tutorials](https://lavaan.ugent.be/tutorial/tutorial.pdf)
 
 # Research data
 
@@ -39,7 +39,7 @@ First, we estimate a simple regression with *read* as dependent (endogenous) var
 
 ## Input
 
-In `r modulename` we set the variables roles in the first panel as shown here: The dependent variable goes in the `r opt("Endogenous Variables")` field, and the independent variable goes in the `r opt("Exogenous Variables")` field.
+In `r modulename()` we set the variables roles in the first panel as shown here: The dependent variable goes in the `r opt("Endogenous Variables")` field, and the independent variable goes in the `r opt("Exogenous Variables")` field.
 
 `r pic("pics/example1/input_model1_roles.png")`
 
@@ -89,13 +89,6 @@ Fit indices are the standard indices reported is structural equation models.
 
 ### $R^2$
 
-```{r  results="asis",warning=FALSE,echo=FALSE}
-
-  cat("<pre class='jamovitable'>")
-  print(mod$models$r2)
-  cat("</pre>")
-
-```
 
 The $R^2$ and its' confidence interval is reported. For details about the C.I. estimation, please refer to `r link_pages(nickname="computation_details")`
 
@@ -122,7 +115,7 @@ The `Parameter Estimates` table reports the regression coefficients. Notice that
 
 ```
 
-The `Variances and Covariances` table reports variables estimated parameters. As regards `read`, we obtain the estimated residual variance (cf. columns `Type` and `Method`). For `motiv`, we obtain the whole variance _computed_ in the sample. This happens because, by default, `r modulename` assumes the exogenous variables to be fixed variables, like in standard regression. This is usually a good idea, but in case one wants to estimate also the variances of the exogenous variables, one can unselect the option `r opt("Parameters Options -> Fixed Exogenous")`. Alternatively, one can estimate this variance by specifying in `r opt("Custom Model Setting")` the code `motive~~motive`. 
+The `Variances and Covariances` table reports variables estimated parameters. As regards `read`, we obtain the estimated residual variance (cf. columns `Type` and `Method`). For `motiv`, we obtain the whole variance _computed_ in the sample. This happens because, by default, `r modulename()` assumes the exogenous variables to be fixed variables, like in standard regression. This is usually a good idea, but in case one wants to estimate also the variances of the exogenous variables, one can unselect the option `r opt("Parameters Options -> Fixed Exogenous")`. Alternatively, one can estimate this variance by specifying in `r opt("Custom Model Setting")` the code `motive~~motive`. 
 
 The `Intercepts` table reports the intercepts. Coherently with the fact that the  variables are centered to their means in the original data-set, all intercepts are 0.
 
@@ -183,7 +176,7 @@ To obtain this test, we need to restrict the two coefficients to be equal. We go
 
 `r pic("pics/example1/input_model2_constraints1.png")`
 
-Parameters labels are shortcuts to refer to a coefficient used in lavaan syntax. `r modulename` assigns automatically a label to each parameter from `p1` to `pk`, where `k` is the number of parameters in the model. Parameters labels are shown in the tables.
+Parameters labels are shortcuts to refer to a coefficient used in lavaan syntax. `r modulename()` assigns automatically a label to each parameter from `p1` to `pk`, where `k` is the number of parameters in the model. Parameters labels are shown in the tables.
 
 
 
@@ -289,7 +282,7 @@ We can wonder what would be the $R^2$'s one obtains if one runs two independent 
 * Dependent=arith
 `r pic("pics/example1/output_reg_arith.png")`
 
-For `arith` the $R^2$ is the same found with `r modulename`, but for `read` it is different. The reason is that the two regressions do not consider the correlation between `read` and `arith`, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained. 
+For `arith` the $R^2$ is the same found with `r modulename()`, but for `read` it is different. The reason is that the two regressions do not consider the correlation between `read` and `arith`, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained. 
 
 If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between `read` and `arith` to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (`p6`) to zero in the `r opt("Custom Model Settings")` with the directive `p6==0`.
 

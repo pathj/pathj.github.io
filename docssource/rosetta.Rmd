@@ -15,9 +15,7 @@ editor_options:
 
 
 ```{r echo=FALSE,results='hide'}
-source("../R/constants.R")
-source("../R/functions.R")
-
+mcdocs::mcdocs_init()
 
 ```
 

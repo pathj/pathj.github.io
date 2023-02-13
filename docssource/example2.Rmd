@@ -16,7 +16,7 @@ editor_options:
 ---
 
 ```{r echo=FALSE,results='hide'}
-source("../R/functions.R")
+mcdocs::mcdocs_init()
 data<-read.csv("../data/worland5.csv")
 ```
 
@@ -30,7 +30,7 @@ In this example we show how deal with categorical variables in path analysis.
 
 # Research data
 
-We use Anderson's Iris data, featuring 
+We use Anderson's Iris data, featuring ... to be continued
 
 
 
