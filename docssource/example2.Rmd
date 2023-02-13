@@ -1,5 +1,5 @@
 ---
-title: "Simple models"
+title: "Categorical Independent variables"
 author: "(Marcello Gallucci)"
 nickname: categorical
 topic: categorical

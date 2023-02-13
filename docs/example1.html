@@ -14,7 +14,8 @@
 
 <title>Simple models</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -69,6 +70,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -93,6 +95,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -150,11 +155,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -183,8 +192,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -311,12 +313,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -324,7 +326,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -368,24 +370,58 @@ div.tocify {
 </div>
 
 
-<p><span class="keywords"> <span class="keytitle"> keywords </span> multiple regression, path analysis, lavaan, multivatiate regression </span></p>
-<p><span class="draft"> Draft version, mistakes may be around </span></p>
-<p>In this example we show how to estimate simple regression models with <span class="modulename">PATHj</span>. The aim is threefold: first, it may help seeing how the SEM module can estimate path analysis, and see how path analysis encompasses models usually estimated with the General Linear Model (but look at <a href="https://gamlj.github.io/">GAMLj module</a> for a specialized module in <span class="jamovi">jamovi</span>). Second, we are going to estimate some models discussed in <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>, so one can compare the results obtained in <code>lavaan</code> with the ones obtained in <span class="modulename">PATHj</span>. Third, we show how to add some interesting test and twist to simple regression models.</p>
-<p>Much of the output that <span class="modulename">PATHj</span> produces is labeled as it is in lavaan R package output, so lots of information can be found in <a href="https://lavaan.ugent.be/tutorial/tutorial.pdf">lavaan help and tutorials</a></p>
+<p><span class="keywords"> <span class="keytitle"> keywords </span>
+multiple regression, path analysis, lavaan, multivatiate regression
+</span></p>
+<p><span class="draft"> Draft version, mistakes may be around
+</span></p>
+<p>In this example we show how to estimate simple regression models with
+<span class="modulename">PATHj</span>. The aim is threefold: first, it
+may help seeing how the SEM module can estimate path analysis, and see
+how path analysis encompasses models usually estimated with the General
+Linear Model (but look at <a href="https://gamlj.github.io/">GAMLj
+module</a> for a specialized module in <span
+class="jamovi">jamovi</span>). Second, we are going to estimate some
+models discussed in <a
+href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical
+consulting webpage</a>, so one can compare the results obtained in
+<code>lavaan</code> with the ones obtained in <span
+class="modulename">PATHj</span>. Third, we show how to add some
+interesting test and twist to simple regression models.</p>
+<p>Much of the output that <span class="modulename">PATHj</span>
+produces is labeled as it is in lavaan R package output, so lots of
+information can be found in <a
+href="https://lavaan.ugent.be/tutorial/tutorial.pdf">lavaan help and
+tutorials</a></p>
 <div id="research-data" class="section level1">
 <h1>Research data</h1>
-<p>The data we use can be found <a href="https://stats.idre.ucla.edu/wp-content/uploads/2021/02/worland5.csv">here at UCLA</a>. The sample is composed by 500 students, each with 9 observed variables: Motivation (motiv), Harmony (harm), Stability (stabi), Negative Parental Psychology (ppsych), SES, Verbal IQ (verbal), Reading (read), Arithmetic (arith) and Spelling (spell). They are all continuous variables.</p>
+<p>The data we use can be found <a
+href="https://stats.idre.ucla.edu/wp-content/uploads/2021/02/worland5.csv">here
+at UCLA</a>. The sample is composed by 500 students, each with 9
+observed variables: Motivation (motiv), Harmony (harm), Stability
+(stabi), Negative Parental Psychology (ppsych), SES, Verbal IQ (verbal),
+Reading (read), Arithmetic (arith) and Spelling (spell). They are all
+continuous variables.</p>
 </div>
 <div id="simple-regression-model-1a" class="section level1">
 <h1>Simple regression (Model 1A)</h1>
-<p>First, we estimate a simple regression with <em>read</em> as dependent (endogenous) variable and <em>motiv</em> as independent (exogenous) variable.</p>
+<p>First, we estimate a simple regression with <em>read</em> as
+dependent (endogenous) variable and <em>motiv</em> as independent
+(exogenous) variable.</p>
 <div id="input" class="section level2">
 <h2>Input</h2>
-<p>In <span class="modulename">PATHj</span> we set the variables roles in the first panel as shown here: The dependent variable goes in the <span class="option">Endogenous Variables</span> field, and the independent variable goes in the <span class="option">Exogenous Variables</span> field.</p>
+<p>In <span class="modulename">PATHj</span> we set the variables roles
+in the first panel as shown here: The dependent variable goes in the
+<span class="option">Endogenous Variables</span> field, and the
+independent variable goes in the <span class="option">Exogenous
+Variables</span> field.</p>
 <p><img src=" pics/example1/input_model1_roles.png " class="img-responsive" alt=""></p>
-<p>Then we specify the endogenous variable predictor in the <span class="option">Endogenous Models</span> panel</p>
+<p>Then we specify the endogenous variable predictor in the <span
+class="option">Endogenous Models</span> panel</p>
 <p><img src=" pics/example1/input_model1_model.png " class="img-responsive" alt=""></p>
-<p>Because we want to see the path diagram of the model (although in this case is too simple to be interesting), we ask for the path diagram in the <span class="option">Path Diagram</span> panel.</p>
+<p>Because we want to see the path diagram of the model (although in
+this case is too simple to be interesting), we ask for the path diagram
+in the <span class="option">Path Diagram</span> panel.</p>
 <p><img src=" pics/example1/input_model1_diagram.png " class="img-responsive" alt=""></p>
 </div>
 <div id="output" class="section level2">
@@ -409,8 +445,15 @@ div.tocify {
  ───────────────────────────────────────────────────────── 
 
 </pre>
-<p>The first table we obtain informs us about the sample size, the model we run, and the log-likelihood. We have 500 cases, upon which we estimated the <code>read~motiv</code> model, which requires 3 free parameters: The effect of <code>motiv</code> on <code>read</code>, the variance of <code>read</code> and the intercept.</p>
-<p><code>Loglikelihood user model</code> and <code>Loglikelihood unrestricted model</code> are the same and indicate the log likelihood of the model. They are the same because we did not restrict any parameter, so the user model is the unrestricted model.</p>
+<p>The first table we obtain informs us about the sample size, the model
+we run, and the log-likelihood. We have 500 cases, upon which we
+estimated the <code>read~motiv</code> model, which requires 3 free
+parameters: The effect of <code>motiv</code> on <code>read</code>, the
+variance of <code>read</code> and the intercept.</p>
+<p><code>Loglikelihood user model</code> and
+<code>Loglikelihood unrestricted model</code> are the same and indicate
+the log likelihood of the model. They are the same because we did not
+restrict any parameter, so the user model is the unrestricted model.</p>
 </div>
 <div id="overall-tests" class="section level3">
 <h3>Overall tests</h3>
@@ -429,7 +472,7 @@ div.tocify {
  ───────────────────────────────────────────────────────────────────────────────────────────────────── 
    AIC         BIC         adj. BIC    SRMR         RMSEA        Lower        Upper        RMSEA p     
  ───────────────────────────────────────────────────────────────────────────────────────────────────── 
-   3561.645    3574.289    3564.767    0.0000000    0.0000000    0.0000000    0.0000000                
+   3561.645    3574.289    3564.767    0.0000001    0.0000000    0.0000000    0.0000000                
  ───────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 
@@ -441,12 +484,22 @@ div.tocify {
  ────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p><code>Model tests</code> table reports the chi-square of the whole model. Because there is no fixed parameter, the model chi-square is zero, and it is not shown. The <code>Baseline model</code> row refers to the comparison between the user model, that is <code>read~motiv</code>, and a model in which the variables covariance is set to zero. In this case, it is simply testing that the effect of <code>motiv</code> on <code>read</code> is different from zero.</p>
-<p>Fit indices are the standard indices reported is structural equation models.</p>
+<p><code>Model tests</code> table reports the chi-square of the whole
+model. Because there is no fixed parameter, the model chi-square is
+zero, and it is not shown. The <code>Baseline model</code> row refers to
+the comparison between the user model, that is <code>read~motiv</code>,
+and a model in which the variables covariance is set to zero. In this
+case, it is simply testing that the effect of <code>motiv</code> on
+<code>read</code> is different from zero.</p>
+<p>Fit indices are the standard indices reported is structural equation
+models.</p>
 </div>
 <div id="r2" class="section level3">
 <h3><span class="math inline">\(R^2\)</span></h3>
-<p>The <span class="math inline">\(R^2\)</span> and its’ confidence interval is reported. For details about the C.I. estimation, please refer to <a href="compute_details.html">PATHj computation details</a></p>
+<p>The <span class="math inline">\(R^2\)</span> and its’ confidence
+interval is reported. For details about the C.I. estimation, please
+refer to <a href="compute_details.html">PATHj computation
+details</a></p>
 </div>
 <div id="coefficients" class="section level3">
 <h3>Coefficients</h3>
@@ -459,7 +512,12 @@ div.tocify {
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>The <code>Parameter Estimates</code> table reports the regression coefficients. Notice that the <code>Estimate</code> is the B coefficient, and the <span class="math inline">\(\beta\)</span> is the fully standardized coefficient. In this case they are equal because the variables have the same variance (100), which implies that B and <span class="math inline">\(\beta\)</span> are equal.</p>
+<p>The <code>Parameter Estimates</code> table reports the regression
+coefficients. Notice that the <code>Estimate</code> is the B
+coefficient, and the <span class="math inline">\(\beta\)</span> is the
+fully standardized coefficient. In this case they are equal because the
+variables have the same variance (100), which implies that B and <span
+class="math inline">\(\beta\)</span> are equal.</p>
 </div>
 <div id="additional-parameters" class="section level3">
 <h3>Additional parameters</h3>
@@ -468,24 +526,40 @@ div.tocify {
  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
    Variable 1    Variable 2    Estimate    SE          Lower       Upper       β            z           p             Method    Type        
  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-   read          read          71.76618    4.538892    62.87011    80.66224    0.7191000    15.81139    < .0000001    Estim     Residuals   
+   read          read          71.76618    4.538892    62.87012    80.66225    0.7191000    15.81139    < .0000001    Estim     Residuals   
    motiv         motiv         99.80000    0.000000    99.80000    99.80000    1.0000000                              Sample    Variables   
  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>The <code>Variances and Covariances</code> table reports variables estimated parameters. As regards <code>read</code>, we obtain the estimated residual variance (cf. columns <code>Type</code> and <code>Method</code>). For <code>motiv</code>, we obtain the whole variance <em>computed</em> in the sample. This happens because, by default, <span class="modulename">PATHj</span> assumes the exogenous variables to be fixed variables, like in standard regression. This is usually a good idea, but in case one wants to estimate also the variances of the exogenous variables, one can unselect the option <span class="option">Parameters Options -&gt; Fixed Exogenous</span>. Alternatively, one can estimate this variance by specifying in <span class="option">Custom Model Setting</span> the code <code>motive~~motive</code>.</p>
-<p>The <code>Intercepts</code> table reports the intercepts. Coherently with the fact that the variables are centered to their means in the original data-set, all intercepts are 0.</p>
+<p>The <code>Variances and Covariances</code> table reports variables
+estimated parameters. As regards <code>read</code>, we obtain the
+estimated residual variance (cf. columns <code>Type</code> and
+<code>Method</code>). For <code>motiv</code>, we obtain the whole
+variance <em>computed</em> in the sample. This happens because, by
+default, <span class="modulename">PATHj</span> assumes the exogenous
+variables to be fixed variables, like in standard regression. This is
+usually a good idea, but in case one wants to estimate also the
+variances of the exogenous variables, one can unselect the option <span
+class="option">Parameters Options -&gt; Fixed Exogenous</span>.
+Alternatively, one can estimate this variance by specifying in <span
+class="option">Custom Model Setting</span> the code
+<code>motive~~motive</code>.</p>
+<p>The <code>Intercepts</code> table reports the intercepts. Coherently
+with the fact that the variables are centered to their means in the
+original data-set, all intercepts are 0.</p>
 <pre class='jamovitable'>
- Intercepts                                                                                    
- ───────────────────────────────────────────────────────────────────────────────────────────── 
-   Variable    Intercept     SE           Lower         Upper        z             p           
- ───────────────────────────────────────────────────────────────────────────────────────────── 
-   read        -0.0000000    0.3788566    -0.7425454    0.7425454    -0.0000000    1.0000000   
-   motiv        0.0000002    0.0000000     0.0000002    0.0000002                              
- ───────────────────────────────────────────────────────────────────────────────────────────── 
+ Intercepts                                                                                  
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
+   Variable    Intercept    SE           Lower         Upper        z            p           
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
+   read        0.0000000    0.3788567    -0.7425454    0.7425454    0.0000000    1.0000000   
+   motiv       0.0000002    0.0000000     0.0000002    0.0000002                             
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>These results, in terms of coefficients and <span class="math inline">\(R^2\)</span>, are equivalent to the results one would obtain with a standard OLS regression.</p>
+<p>These results, in terms of coefficients and <span
+class="math inline">\(R^2\)</span>, are equivalent to the results one
+would obtain with a standard OLS regression.</p>
 </div>
 </div>
 </div>
@@ -493,14 +567,22 @@ div.tocify {
 <h1>Multiple regression (Model 2)</h1>
 <div id="input-1" class="section level2">
 <h2>Input</h2>
-<p>In model 2 we add a second predictor <code>ppsych</code>, first in the variables role panel, then to the endogenous variables model.</p>
+<p>In model 2 we add a second predictor <code>ppsych</code>, first in
+the variables role panel, then to the endogenous variables model.</p>
 <p><img src=" pics/example1/input_model2.png " class="img-responsive" alt=""></p>
 </div>
 <div id="output-1" class="section level2">
 <h2>Output</h2>
-<p>Results are in line with a standard multiple regression model. The path diagram is as follows</p>
-<p><img src="example1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>We do not go through the output again, because we would find the same tables with the same interpretation as before. However, we can do something with this model that OLS regression does not allow to do with simplicity. We test the null-hypothesis that the two predictors have the same effect. In other words, we test that the effect from <code>motiv</code> to <code>read</code> is not different from the effect from <code>ppsych</code> to <code>read</code>.</p>
+<p>Results are in line with a standard multiple regression model. The
+path diagram is as follows</p>
+<p><img src="example1_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="example1_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<p>We do not go through the output again, because we would find the same
+tables with the same interpretation as before. However, we can do
+something with this model that OLS regression does not allow to do with
+simplicity. We test the null-hypothesis that the two predictors have the
+same effect. In other words, we test that the effect from
+<code>motiv</code> to <code>read</code> is not different from the effect
+from <code>ppsych</code> to <code>read</code>.</p>
 <p>Let’s look at the parameters we have just estimated.</p>
 <pre class='jamovitable'>
  Parameter Estimates                                                                                                 
@@ -524,10 +606,19 @@ div.tocify {
  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>We want to test the null-hypothesis .461=-.275. This test makes sense because the two coefficients have the same scale, as indicated by the fact that <code>motiv</code> and <code>ppsych</code> have the same variance (see <code>Variances and Covariances</code> table).</p>
-<p>To obtain this test, we need to restrict the two coefficients to be equal. We go to <span class="option">Custom Model Settings</span> and flag the option <span class="option">Show parameters labels</span>.</p>
+<p>We want to test the null-hypothesis .461=-.275. This test makes sense
+because the two coefficients have the same scale, as indicated by the
+fact that <code>motiv</code> and <code>ppsych</code> have the same
+variance (see <code>Variances and Covariances</code> table).</p>
+<p>To obtain this test, we need to restrict the two coefficients to be
+equal. We go to <span class="option">Custom Model Settings</span> and
+flag the option <span class="option">Show parameters labels</span>.</p>
 <p><img src=" pics/example1/input_model2_constraints1.png " class="img-responsive" alt=""></p>
-<p>Parameters labels are shortcuts to refer to a coefficient used in lavaan syntax. <span class="modulename">PATHj</span> assigns automatically a label to each parameter from <code>p1</code> to <code>pk</code>, where <code>k</code> is the number of parameters in the model. Parameters labels are shown in the tables.</p>
+<p>Parameters labels are shortcuts to refer to a coefficient used in
+lavaan syntax. <span class="modulename">PATHj</span> assigns
+automatically a label to each parameter from <code>p1</code> to
+<code>pk</code>, where <code>k</code> is the number of parameters in the
+model. Parameters labels are shown in the tables.</p>
 <pre class='jamovitable'>
  Parameter Estimates                                                                                                          
  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
@@ -538,7 +629,9 @@ div.tocify {
  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>We see in the table that the two coefficients that are interesting us are labeled p1 and p2. Thus, we go to the <span class="option">Custom Model Settings</span> panel and constraints them as equal.</p>
+<p>We see in the table that the two coefficients that are interesting us
+are labeled p1 and p2. Thus, we go to the <span class="option">Custom
+Model Settings</span> panel and constraints them as equal.</p>
 <p><img src=" pics/example1/input_model2_constraints2.png " class="img-responsive" alt=""></p>
 <p>The output now reports the coefficients as equal to .093.</p>
 <pre class='jamovitable'>
@@ -546,12 +639,18 @@ div.tocify {
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
    Label    Dep     Pred      Estimate      SE            Lower         Upper        β             z           p           
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-   p1       read    motiv     0.09333345    0.03627549    0.02223479    0.1644321    0.09333344    2.572907    0.0100848   
-   p2       read    ppsych    0.09333345    0.03627549    0.02223479    0.1644321    0.09333344    2.572907    0.0100848   
+   p1       read    motiv     0.09333336    0.03627549    0.02223470    0.1644320    0.09333336    2.572904    0.0100849   
+   p2       read    ppsych    0.09333336    0.03627549    0.02223470    0.1644320    0.09333335    2.572904    0.0100849   
  ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>In the output we also find a new table, <code>Constraints Score Tests</code>, which provides a chi-square test comparing the original model with the constrained model with the two coefficients set as equal. The test null-hypothesis is that they are equal, thus if one finds the test to be <em>significant</em>, one can reject the null-hypothesis. In this case, the coefficients can be considered as <em>statistically different</em>.</p>
+<p>In the output we also find a new table,
+<code>Constraints Score Tests</code>, which provides a chi-square test
+comparing the original model with the constrained model with the two
+coefficients set as equal. The test null-hypothesis is that they are
+equal, thus if one finds the test to be <em>significant</em>, one can
+reject the null-hypothesis. In this case, the coefficients can be
+considered as <em>statistically different</em>.</p>
 <pre class='jamovitable'>
  Constraints Score Tests                                                
  ────────────────────────────────────────────────────────────────────── 
@@ -561,48 +660,83 @@ div.tocify {
  ────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>We the same logic, one can test any reasonable hypothesis in a model by restricting the appropriate coefficients to be equal or to equate a specific value.</p>
+<p>We the same logic, one can test any reasonable hypothesis in a model
+by restricting the appropriate coefficients to be equal or to equate a
+specific value.</p>
 </div>
 </div>
 <div id="multivariate-regression" class="section level1">
 <h1>Multivariate regression</h1>
 <p><em>(Models 3A-E)</em></p>
-<p>We can now add some endogenous dependent variables. We add <code>arith</code> (<em>arithmetic test score</em>) as dependent variable in the model, with <code>motiv</code> and <code>ppsych</code> as predictors of <code>read</code>, and only <code>motiv</code> as predictor of <code>arith</code>. The path diagram looks like this.</p>
+<p>We can now add some endogenous dependent variables. We add
+<code>arith</code> (<em>arithmetic test score</em>) as dependent
+variable in the model, with <code>motiv</code> and <code>ppsych</code>
+as predictors of <code>read</code>, and only <code>motiv</code> as
+predictor of <code>arith</code>. The path diagram looks like this.</p>
 <p><img src=" pics/example1/output_model3_diagram.png " class="img-responsive" alt=""></p>
-<p>We obtain this model by adding <code>arith</code> to the <span class="option">Endogeneous Variables</span> field, and then defining its predictor in the <span class="option">Endogenous Models</span> panel.</p>
+<p>We obtain this model by adding <code>arith</code> to the <span
+class="option">Endogeneous Variables</span> field, and then defining its
+predictor in the <span class="option">Endogenous Models</span>
+panel.</p>
 <p><img src=" pics/example1/input_model3_models.png " class="img-responsive" alt=""></p>
-<p>We get exactly the same results obtained in lavaan (cf <a href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical consulting webpage</a>).</p>
+<p>We get exactly the same results obtained in lavaan (cf <a
+href="https://stats.idre.ucla.edu/r/seminars/rsem/">UCLA statistical
+consulting webpage</a>).</p>
 <pre class='jamovitable'>
  Parameter Estimates                                                                                                  
  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
    Dep      Pred      Estimate      SE            Lower         Upper         β             z            p            
  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
-   read     motiv      0.4760551    0.03685136     0.4038278     0.5482824     0.4818295    12.918251    < .0000001   
-   read     ppsych    -0.2157799    0.02960408    -0.2738028    -0.1577570    -0.2183973    -7.288856    < .0000001   
-   arith    motiv      0.6000000    0.03577708     0.5298782     0.6701218     0.6000000    16.770512    < .0000001   
+   read     motiv      0.4760551    0.03685137     0.4038277     0.5482824     0.4818294    12.918245    < .0000001   
+   read     ppsych    -0.2157797    0.02960409    -0.2738027    -0.1577568    -0.2183970    -7.288849    < .0000001   
+   arith    motiv      0.6000000    0.03577709     0.5298782     0.6701218     0.6000000    16.770508    < .0000001   
  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
 
 </pre>
-<p>In UCLA page, there is an interesting discussion about the residuals variances of this model, compared with a model with endogenous covariances set to zero. The discussion is useful to understand the difference in the results of a multivariate path analysis model (more than one dependent variable) as compared with a series of univariate models.</p>
-<p>We can reason on this issue from the angle of the variance explained, thus the <span class="math inline">\(R^2\)</span>’s.</p>
-<p>Model 3 <span class="math inline">\(R^2\)</span> are the following:</p>
+<p>In UCLA page, there is an interesting discussion about the residuals
+variances of this model, compared with a model with endogenous
+covariances set to zero. The discussion is useful to understand the
+difference in the results of a multivariate path analysis model (more
+than one dependent variable) as compared with a series of univariate
+models.</p>
+<p>We can reason on this issue from the angle of the variance explained,
+thus the <span class="math inline">\(R^2\)</span>’s.</p>
+<p>Model 3 <span class="math inline">\(R^2\)</span> are the
+following:</p>
 <pre class='jamovitable'>
  R-squared                                           
  ─────────────────────────────────────────────────── 
    Variable    R²           Lower        Upper       
  ─────────────────────────────────────────────────── 
-   read        0.3324722    0.2651743    0.3998319   
-   arith       0.3600000    0.2924227    0.4268228   
+   read        0.3324719    0.2651740    0.3998317   
+   arith       0.3600000    0.2924226    0.4268227   
  ─────────────────────────────────────────────────── 
 
 </pre>
-<p>We can wonder what would be the <span class="math inline">\(R^2\)</span>’s one obtains if one runs two independent multiple regressions, one for each dependent variables. Employing <span class="jamovi">jamovi</span> regression, we obtain:</p>
+<p>We can wonder what would be the <span
+class="math inline">\(R^2\)</span>’s one obtains if one runs two
+independent multiple regressions, one for each dependent variables.
+Employing <span class="jamovi">jamovi</span> regression, we obtain:</p>
 <ul>
-<li><p>Dependent=read <img src=" pics/example1/output_reg_read.png " class="img-responsive" alt=""></p></li>
-<li><p>Dependent=arith <img src=" pics/example1/output_reg_arith.png " class="img-responsive" alt=""></p></li>
+<li><p>Dependent=read
+<img src=" pics/example1/output_reg_read.png " class="img-responsive" alt=""></p></li>
+<li><p>Dependent=arith
+<img src=" pics/example1/output_reg_arith.png " class="img-responsive" alt=""></p></li>
 </ul>
-<p>For <code>arith</code> the <span class="math inline">\(R^2\)</span> is the same found with <span class="modulename">PATHj</span>, but for <code>read</code> it is different. The reason is that the two regressions do not consider the correlation between <code>read</code> and <code>arith</code>, that cannot be included in the model and help to explain variance. The path analysis model, instead, considers that variance and incorporates it in the variance explained.</p>
-<p>If we want to obtain with the path analysis the exact results obtained with two regressions, we should set the correlation between <code>read</code> and <code>arith</code> to zero, so the model would not include it in the variance explained. We can do that by setting the corresponding label (<code>p6</code>) to zero in the <span class="option">Custom Model Settings</span> with the directive <code>p6==0</code>.</p>
+<p>For <code>arith</code> the <span class="math inline">\(R^2\)</span>
+is the same found with <span class="modulename">PATHj</span>, but for
+<code>read</code> it is different. The reason is that the two
+regressions do not consider the correlation between <code>read</code>
+and <code>arith</code>, that cannot be included in the model and help to
+explain variance. The path analysis model, instead, considers that
+variance and incorporates it in the variance explained.</p>
+<p>If we want to obtain with the path analysis the exact results
+obtained with two regressions, we should set the correlation between
+<code>read</code> and <code>arith</code> to zero, so the model would not
+include it in the variance explained. We can do that by setting the
+corresponding label (<code>p6</code>) to zero in the <span
+class="option">Custom Model Settings</span> with the directive
+<code>p6==0</code>.</p>
 <pre class='jamovitable'>
  R-squared                                           
  ─────────────────────────────────────────────────── 
@@ -613,7 +747,13 @@ div.tocify {
  ─────────────────────────────────────────────────── 
 
 </pre>
-<p>Results are now identical to the individual regressions. In other words, the advantage of a multivariate model over a series of individual univariate models is that the endogenous variables correlations are taken into the account in the former, and ignored in the latter. incidentally, a multivariate model with orthogonal (not correlated) dependent variables does not have any advantage over a series of univariate models.</p>
+<p>Results are now identical to the individual regressions. In other
+words, the advantage of a multivariate model over a series of individual
+univariate models is that the endogenous variables correlations are
+taken into the account in the former, and ignored in the latter.
+incidentally, a multivariate model with orthogonal (not correlated)
+dependent variables does not have any advantage over a series of
+univariate models.</p>
 </div>
 <div id="related-examples" class="section level1">
 <h1>Related examples</h1>
@@ -623,7 +763,9 @@ div.tocify {
 Comments?
 </h1>
 <p>
-Got comments, issues or spotted a bug? Please open an issue on <a href=" https://github.com/pathj/pathj/issues "> PATHj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a>
+Got comments, issues or spotted a bug? Please open an issue on
+<a href="https://github.com/pathj/pathj//issues "> PATHj at github</a>
+or <a href="mailto:mcfanda@gmail.com">send me an email</a>
 </p>
 </div>
 
@@ -665,6 +807,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -18,6 +18,7 @@ link-citations: true
 
 
 ```{r echo=FALSE,results='hide'}
+library(mcdocs)
 mcdocs::mcdocs_init()
 ```
 

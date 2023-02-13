@@ -13,7 +13,8 @@
 
 <title>PATHj computation details</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -68,6 +69,29 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -92,6 +116,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -149,11 +176,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -182,8 +213,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -191,16 +222,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -310,12 +334,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -323,7 +347,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -366,26 +390,49 @@ div.tocify {
 </div>
 
 
-<p><span class="keywords"> <span class="keytitle"> keywords </span> pathj,jamovi, path analyis ,interactions,categorical variables </span></p>
+<p><span class="keywords"> <span class="keytitle"> keywords </span>
+pathj,jamovi, path analyis ,interactions,categorical variables
+</span></p>
 <p><strong>PATHJ</strong> module details</p>
-<p><span class="version"> <span class="versiontitle"> PATHj version ≥ </span> 0.5.* </span> <span class="draft"> Draft version, mistakes may be around </span></p>
+<p><span class="version"> <span class="versiontitle"> PATHj version ≥
+</span> 0.5.* </span> <span class="draft"> Draft version, mistakes may
+be around </span></p>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p><span class="modulename">PATHj</span> module estimation is based on <code>lavaan</code> R package <span class="citation">(Rosseel <a href="#ref-lavaan">2012</a>)</span>. Most of <span class="modulename">PATHj</span> work is to prepare data and options to be sent to lavaan, extract the output and pack it nicely for <span class="jamovi">jamovi</span> output. Nonetheless, there are a few operations that should be explained to let the user know what <span class="modulename">PATHj</span> is actually doing. Here you find some information.</p>
+<p><span class="modulename">PATHj</span> module estimation is based on
+<code>lavaan</code> R package <span class="citation">(<a
+href="#ref-lavaan" role="doc-biblioref">Rosseel 2012</a>)</span>. Most
+of <span class="modulename">PATHj</span> work is to prepare data and
+options to be sent to lavaan, extract the output and pack it nicely for
+<span class="jamovi">jamovi</span> output. Nonetheless, there are a few
+operations that should be explained to let the user know what <span
+class="modulename">PATHj</span> is actually doing. Here you find some
+information.</p>
 </div>
 <div id="categorical-variables" class="section level1">
 <h1>Categorical Variables</h1>
-<p><span class="modulename">PATHj</span> accepts any categorical variable as exogenous variable, indepenently of the number of levels in the variable. This is achieved using a very general rule of linear models: <em>any categorical variable can be cast in a linear model by representing it with K-1 contrast variables, where K is the number of levels</em>.</p>
-<p>Thus, when the user inserts a categorical variable in <span class="option">Exogenous Factors</span>, <span class="modulename">PATHj</span> creates K-1 new variables in the data sets, each representing a contrast between levels. What constrast weights are used is decided by the <span class="option">Factors Coding</span> panel. All directives regarding the categorical variables (variances, regression coefficients, etc.) are applied to each contrast of the variable.</p>
+<p><span class="modulename">PATHj</span> accepts any categorical
+variable as exogenous variable, indepenently of the number of levels in
+the variable. This is achieved using a very general rule of linear
+models: <em>any categorical variable can be cast in a linear model by
+representing it with K-1 contrast variables, where K is the number of
+levels</em>.</p>
+<p>Thus, when the user inserts a categorical variable in <span
+class="option">Exogenous Factors</span>, <span
+class="modulename">PATHj</span> creates K-1 new variables in the data
+sets, each representing a contrast between levels. What constrast
+weights are used is decided by the <span class="option">Factors
+Coding</span> panel. All directives regarding the categorical variables
+(variances, regression coefficients, etc.) are applied to each contrast
+of the variable.</p>
 <p>Generally speaking, this method works well. Here is an example:</p>
-<p>Consider the data <code>pathjexample</code>, present in the module. One categorical variable is called <code>groups_a</code>, featuring three groups. If one uses R <code>lm()</code> to estimate the effect of <code>groups_a</code> on <code>y1</code>, one gets the following results:</p>
-<pre class="r"><code>library(pathj)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;pathj&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     pathjdata</code></pre>
-<pre class="r"><code>data(&quot;pathjdata&quot;)
+<p>Consider the data <code>pathjexample</code>, present in the module.
+One categorical variable is called <code>groups_a</code>, featuring
+three groups. If one uses R <code>lm()</code> to estimate the effect of
+<code>groups_a</code> on <code>y1</code>, one gets the following
+results:</p>
+<pre class="r"><code>library(pathj)
+data(&quot;pathjdata&quot;)
 model_formula&lt;-y1~groups_a
 pathjdata$groups_a&lt;-factor(pathjdata$groups_a)
 contrasts(pathjdata$groups_a)&lt;-contr.treatment(3)-(1/3)  # centered constrasts with group 1 as reference group
@@ -407,19 +454,34 @@ summary(lm(model_formula,data=pathjdata))</code></pre>
 ## Residual standard error: 2.311 on 97 degrees of freedom
 ## Multiple R-squared:  0.009156,   Adjusted R-squared:  -0.01127 
 ## F-statistic: 0.4481 on 2 and 97 DF,  p-value: 0.6401</code></pre>
-<p>If we know run the same model in <span class="modulename">PATHj</span>, we get the same results in terms of coefficients and interpretation.</p>
+<p>If we know run the same model in <span
+class="modulename">PATHj</span>, we get the same results in terms of
+coefficients and interpretation.</p>
 <pre class="r"><code>mod&lt;-pathj::pathj(formula=list(model_formula),
                   data=pathjdata,
                   r2test = TRUE)
 mod$models$r2
 mod$models$coefficients</code></pre>
 <p><img src=" pics/details/output_anova_coefficients.png " class="img-responsive" alt=""></p>
-<p>The coefficients are the same in R <code>lm()</code> and in <span class="modulename">PATHj</span>. Standard errors are slightly different, but that is due to the fact that regression uses OLS and path analysis uses ML. We also get the same <span class="math inline">\(R^2\)</span> and comparable p-value for the <span class="math inline">\(R^2\)</span>, which is discussed <a href="#(R%5E2)">below</a> .</p>
+<p>The coefficients are the same in R <code>lm()</code> and in <span
+class="modulename">PATHj</span>. Standard errors are slightly different,
+but that is due to the fact that regression uses OLS and path analysis
+uses ML. We also get the same <span class="math inline">\(R^2\)</span>
+and comparable p-value for the <span class="math inline">\(R^2\)</span>,
+which is discussed <a href="#id_(R%5E2)">below</a> .</p>
 </div>
 <div id="interactions" class="section level1">
 <h1>Interactions</h1>
-<p><span class="modulename">PATHj</span> accepts interactions of any order. This is implemented by creating, for each interaction term, a new variable which is the product of the variables composing the interaction. The products are computed after any transformation of the variables (such as centering or standardizing), providing accurate estimation of the interaction coefficients.</p>
-<p>The only side-effect of this method is that if an interaction term is present in more than one directive, it must be defined always with the same order of terms. As an example, the following model will fail in <span class="modulename">PATHj</span>:</p>
+<p><span class="modulename">PATHj</span> accepts interactions of any
+order. This is implemented by creating, for each interaction term, a new
+variable which is the product of the variables composing the
+interaction. The products are computed after any transformation of the
+variables (such as centering or standardizing), providing accurate
+estimation of the interaction coefficients.</p>
+<p>The only side-effect of this method is that if an interaction term is
+present in more than one directive, it must be defined always with the
+same order of terms. As an example, the following model will fail in
+<span class="modulename">PATHj</span>:</p>
 <pre><code>y1~x1+x2+x1:x2
 y2~x1+x2+x2:x1
 
@@ -428,12 +490,28 @@ y2~x1+x2+x2:x1
 <pre><code>y1~x1+x2+x1:x2
 y2~x1+x2+x1:x2
 </code></pre>
-<p><span class="modulename">PATHj</span> handles this issue in <span class="jamovi">jamovi</span> by ordering interaction terms alphabetically.</p>
+<p><span class="modulename">PATHj</span> handles this issue in <span
+class="jamovi">jamovi</span> by ordering interaction terms
+alphabetically.</p>
 </div>
 <div id="r2" class="section level1">
 <h1><span class="math inline">\(R^2\)</span></h1>
-<p><span class="math inline">\(R^2\)</span> are computed as one minus the standardized residual variance of each endogenous variable. Practically, defining <span class="math inline">\(\hat{\sigma}^2_r\)</span> as the standardized residual variance, <span class="math inline">\(R^2_v=1-\hat{\sigma}^2_r\)</span></p>
-<p>As regards the confidence intervals, by default they are estimated converting <span class="math inline">\(R^2\)</span> to <span class="math inline">\(R\)</span>, then to <span class="math inline">\(z\)</span> using the Fisher Z-transformation, then estimating the C.I. for <span class="math inline">\(z\)</span> and back transform them to <span class="math inline">\(R^2\)</span>. The actual formula is in <span class="citation">Carlson (<a href="#ref-r2ci">2013</a>)</span>, and is implemented as follows (R2 is the R-squared, N is the sample size, ciwidth is the C.I. width, usually .95):</p>
+<p><span class="math inline">\(R^2\)</span> are computed as one minus
+the standardized residual variance of each endogenous variable.
+Practically, defining <span
+class="math inline">\(\hat{\sigma}^2_r\)</span> as the standardized
+residual variance, <span
+class="math inline">\(R^2_v=1-\hat{\sigma}^2_r\)</span></p>
+<p>As regards the confidence intervals, by default they are estimated
+converting <span class="math inline">\(R^2\)</span> to <span
+class="math inline">\(R\)</span>, then to <span
+class="math inline">\(z\)</span> using the Fisher Z-transformation, then
+estimating the C.I. for <span class="math inline">\(z\)</span> and back
+transform them to <span class="math inline">\(R^2\)</span>. The actual
+formula is in <span class="citation">Carlson (<a href="#ref-r2ci"
+role="doc-biblioref">2013</a>)</span>, and is implemented as follows (R2
+is the R-squared, N is the sample size, ciwidth is the C.I. width,
+usually .95):</p>
 <pre><code>      r&lt;-sqrt(R2)
       f&lt;-.5 * log((1 + r)/(1 - r))
       zr&lt;-f*sqrt((N-3))
@@ -448,21 +526,39 @@ y2~x1+x2+x1:x2
       rlower&lt;-rlower^2
 
 </code></pre>
-<p>The alternative method <code>Residual C.I.</code> employes the residual variance C.I., by simply computing one minus the standardized limits of the residual variance C.I.. This method may yield negative lower bounds, which do not make much sense in the context of <span class="math inline">\(R^2\)</span>.</p>
-<p>As regards the inferential tests associated with the <span class="math inline">\(R^2\)</span>’s (option <span class="option">R-squared tests</span> in <span class="option">Model Options</span> panel), they are obtained as Wald’s chi-squared tests comparing the orginal model with a constrained model in which all paths leading to the endogenous variable are set to zero (except the intercept). The p-values obtained in this way are very close to the p-values one obtains with standard GLM F-tests.</p>
+<p>The alternative method <code>Residual C.I.</code> employes the
+residual variance C.I., by simply computing one minus the standardized
+limits of the residual variance C.I.. This method may yield negative
+lower bounds, which do not make much sense in the context of <span
+class="math inline">\(R^2\)</span>.</p>
+<p>As regards the inferential tests associated with the <span
+class="math inline">\(R^2\)</span>’s (option <span
+class="option">R-squared tests</span> in <span class="option">Model
+Options</span> panel), they are obtained as Wald’s chi-squared tests
+comparing the orginal model with a constrained model in which all paths
+leading to the endogenous variable are set to zero (except the
+intercept). The p-values obtained in this way are very close to the
+p-values one obtains with standard GLM F-tests.</p>
 <h1>
 Comments?
 </h1>
 <p>
-Got comments, issues or spotted a bug? Please open an issue on <a href=" https://github.com/pathj/pathj/issues "> PATHj at github“</a> or <a href="mailto:mcfanda@gmail.com">send me an email</a>
+Got comments, issues or spotted a bug? Please open an issue on
+<a href="https://github.com/pathj/pathj//issues "> PATHj at github</a>
+or <a href="mailto:mcfanda@gmail.com">send me an email</a>
 </p>
 <p>’</p>
-<div id="refs" class="references">
-<div id="ref-r2ci">
-<p>Carlson, Heather A. 2013. “Check Your Confidence: Size Really Does Matter.” <em>Journal of Chemical Information and Modeling</em> 53 (8). ACS Publications: 1837–41.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r2ci" class="csl-entry">
+Carlson, Heather A. 2013. <span>“Check Your Confidence: Size Really Does
+Matter.”</span> <em>Journal of Chemical Information and Modeling</em> 53
+(8): 1837–41.
 </div>
-<div id="ref-lavaan">
-<p>Rosseel, Yves. 2012. “lavaan: An R Package for Structural Equation Modeling.” <em>Journal of Statistical Software</em> 48 (2): 1–36. <a href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>.</p>
+<div id="ref-lavaan" class="csl-entry">
+Rosseel, Yves. 2012. <span>“<span class="nocase">lavaan</span>: An
+<span>R</span> Package for Structural Equation Modeling.”</span>
+<em>Journal of Statistical Software</em> 48 (2): 1–36. <a
+href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>.
 </div>
 </div>
 </div>
@@ -505,6 +601,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

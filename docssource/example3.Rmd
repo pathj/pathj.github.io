@@ -1,5 +1,5 @@
 ---
-title: "Simple models"
+title: "Multigroup models"
 author: "(Marcello Gallucci)"
 nickname: multigroup
 topic: categorical

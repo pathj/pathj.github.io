@@ -16,8 +16,11 @@ editor_options:
 
 
 ```{r, echo=FALSE,results='asis', warning=FALSE,message=FALSE}
+library(mcdocs)
 mcdocs::mcdocs_init()
-mcdocs::write_commits()
+mcdocs::mcdocs_gh_info()
+coms<-get_commits()
+write_commits(coms)
 
 ```
 
